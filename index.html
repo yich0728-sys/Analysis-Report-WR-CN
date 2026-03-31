@@ -9,8 +9,11 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f8;color:#1a1a2e;font-size:13px;line-height:1.5}
 .page{max-width:1060px;margin:0 auto;padding:24px 18px}
-.hdr{background:linear-gradient(135deg,#1a1a2e,#0f3460);color:#fff;border-radius:14px;padding:26px 30px;margin-bottom:14px;position:relative;overflow:hidden}
-.hdr::after{content:'';position:absolute;right:-30px;top:-30px;width:180px;height:180px;background:rgba(229,57,53,.1);border-radius:50%}
+.hdr{background:linear-gradient(135deg,#1a1a2e,#0f3460);color:#fff;border-radius:14px;padding:0;margin-bottom:14px;position:relative;overflow:hidden}
+.hdr-img-bg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hdr-img-bg svg{width:100%;height:100%}
+.hdr-content{position:relative;z-index:1;padding:26px 30px}
+.hdr-game-badge{font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(229,57,53,.9);text-transform:uppercase;margin-bottom:6px}
 .hdr-title{font-size:21px;font-weight:700;margin-bottom:6px}
 .hdr-sub{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:14px}
 .ver-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
@@ -64,6 +67,12 @@ tr:hover td{background:#eef2ff}
 .footnote{font-size:10px;color:#ccc;text-align:center;margin-top:16px;padding-top:12px;border-top:1px solid #eee}
 .chart{width:100%;height:230px}
 .chart-sm{width:100%;height:190px}
+.kpi-group{margin-bottom:12px}
+.kpi-group-lbl{font-size:10px;font-weight:700;color:#888;letter-spacing:1px;margin-bottom:5px;padding-left:4px;border-left:3px solid #e53935;display:block}
+.num-up{color:#2e7d32;font-weight:700}
+.num-dn{color:#c62828;font-weight:700}
+.risk-banner{background:linear-gradient(90deg,#fff3f3,#fff9f9);border:1.5px solid #e53935;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:11px;color:#6d1212;line-height:1.7}
+.risk-banner strong{color:#c62828;font-weight:700}
 @media(max-width:580px){.vc-compare{grid-template-columns:1fr 1fr}.kpi-row{grid-template-columns:1fr 1fr}}
 </style>
 </head>
@@ -72,16 +81,73 @@ tr:hover td{background:#eef2ff}
 
 <!-- HEADER -->
 <div class="hdr">
-  <div class="hdr-title">机甲战队 · 0317版本首周7天数据报告</div>
-  <div class="hdr-sub">统计时间：2026-03-17 ～ 2026-03-23 &nbsp;|&nbsp; 移动端双端 &nbsp;|&nbsp; 货币：人民币</div>
-  <div class="ver-tags">
-    <span class="ver-tag cur">🎯 0317 · Condor / Sport Condor</span>
-    <span class="ver-tag">对比 0210 · Teth / Bersagliere</span>
-    <span class="ver-tag">对比 0115 · Pathfinder</span>
-    <span class="ver-tag">对比 1209 · Rex / Mauler</span>
+  <div class="hdr-img-bg">
+    <svg viewBox="0 0 800 170" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <!-- grid -->
+      <g stroke="rgba(229,57,53,0.06)" stroke-width="1">
+        <line x1="0" y1="0" x2="800" y2="170"/><line x1="800" y1="0" x2="0" y2="170"/>
+        <line x1="0" y1="42" x2="800" y2="42"/><line x1="0" y1="85" x2="800" y2="85"/><line x1="0" y1="128" x2="800" y2="128"/>
+        <line x1="100" y1="0" x2="100" y2="170"/><line x1="200" y1="0" x2="200" y2="170"/>
+        <line x1="400" y1="0" x2="400" y2="170"/><line x1="600" y1="0" x2="600" y2="170"/><line x1="700" y1="0" x2="700" y2="170"/>
+      </g>
+      <!-- circles deco -->
+      <circle cx="680" cy="85" r="60" fill="none" stroke="rgba(229,57,53,0.08)" stroke-width="1.5"/>
+      <circle cx="680" cy="85" r="40" fill="none" stroke="rgba(229,57,53,0.06)" stroke-width="1"/>
+      <!-- WR hexagon logo -->
+      <g transform="translate(680,85)">
+        <polygon points="0,-52 45,-26 45,26 0,52 -45,26 -45,-26" fill="none" stroke="rgba(229,57,53,0.35)" stroke-width="2"/>
+        <polygon points="0,-38 33,-19 33,19 0,38 -33,19 -33,-19" fill="rgba(229,57,53,0.12)" stroke="rgba(229,57,53,0.2)" stroke-width="1"/>
+        <!-- W letter -->
+        <text x="-16" y="6" font-size="28" font-weight="900" fill="rgba(229,57,53,0.7)" font-family="Arial,sans-serif" letter-spacing="-2">WR</text>
+        <!-- crosshair lines -->
+        <line x1="-55" y1="0" x2="-48" y2="0" stroke="rgba(229,57,53,0.3)" stroke-width="1.5"/>
+        <line x1="48" y1="0" x2="55" y2="0" stroke="rgba(229,57,53,0.3)" stroke-width="1.5"/>
+        <line x1="0" y1="-55" x2="0" y2="-48" stroke="rgba(229,57,53,0.3)" stroke-width="1.5"/>
+        <line x1="0" y1="48" x2="0" y2="55" stroke="rgba(229,57,53,0.3)" stroke-width="1.5"/>
+      </g>
+      <!-- mech silhouette right -->
+      <g opacity="0.12" fill="#e53935" transform="translate(600,85) scale(0.7)">
+        <rect x="-22" y="-52" width="44" height="28" rx="4"/>
+        <rect x="-15" y="-68" width="30" height="20" rx="3"/>
+        <rect x="-6" y="-62" width="12" height="8" rx="2" fill="#ff8a80" opacity="2"/>
+        <rect x="-38" y="-42" width="18" height="12" rx="3"/>
+        <rect x="20" y="-42" width="18" height="12" rx="3"/>
+        <rect x="-44" y="-34" width="10" height="28" rx="2"/>
+        <rect x="34" y="-34" width="10" height="28" rx="2"/>
+        <rect x="-52" y="-22" width="12" height="6" rx="2"/>
+        <rect x="40" y="-22" width="12" height="6" rx="2"/>
+        <rect x="-22" y="-24" width="44" height="48" rx="4"/>
+        <rect x="-18" y="24" width="14" height="26" rx="2"/>
+        <rect x="4" y="24" width="14" height="26" rx="2"/>
+        <rect x="-22" y="46" width="18" height="6" rx="2"/>
+        <rect x="4" y="46" width="18" height="6" rx="2"/>
+        <polygon points="-38,-42 -80,-65 -36,-30"/>
+        <polygon points="38,-42 80,-65 36,-30"/>
+      </g>
+    </svg>
   </div>
-  <div class="meta-row">
-    <span>收入/付费：appmetr</span><span>活跃/新增/去重：彩虹</span><span>统计天数：7天</span>
+  <div class="hdr-content">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <!-- WR inline logo badge -->
+      <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="18,2 32,10 32,26 18,34 4,26 4,10" fill="#e53935" opacity="0.9"/>
+        <text x="18" y="22" font-size="11" font-weight="900" fill="white" font-family="Arial,sans-serif" text-anchor="middle" letter-spacing="-0.5">WR</text>
+      </svg>
+      <div>
+        <div class="hdr-game-badge">WAR ROBOTS · 机甲战队</div>
+        <div class="hdr-title">0317 兀鹫版本 · 首周7天数据报告</div>
+      </div>
+    </div>
+    <div class="hdr-sub">统计时间：2026-03-17 ～ 2026-03-23 &nbsp;|&nbsp; 移动端双端 &nbsp;|&nbsp; 货币：人民币</div>
+    <div class="ver-tags">
+      <span class="ver-tag cur">🎯 0317 · 兀鹫 / 竞速兀鹫</span>
+      <span class="ver-tag">对比 0210 · 泰特 / 神枪手 春节</span>
+      <span class="ver-tag">对比 0115 · 探路者</span>
+      <span class="ver-tag">对比 1209 · 雷克斯 / 拳击手</span>
+    </div>
+    <div class="meta-row">
+      <span>收入/付费：appmetr</span><span>活跃/新增/去重：彩虹</span><span>统计天数：7天</span>
+    </div>
   </div>
 </div>
 
@@ -90,36 +156,36 @@ tr:hover td{background:#eef2ff}
   <div class="card-title">版本内容概览</div>
   <div class="ver-grid">
     <div class="ver-box cur">
-      <div class="ver-box-lbl">🎯 0317（本期）</div>
+      <div class="ver-box-lbl">🎯 0317 兀鹫（本期）</div>
       <div class="ver-content">
-        <span class="vc mech">Condor</span><span class="vc sp">Sport Condor ★限量</span>
-        <span class="vc weapon">Screamer</span><span class="vc weapon">Growler</span><span class="vc weapon">Howler</span>
+        <span class="vc mech">兀鹫</span><span class="vc sp">竞速兀鹫 ★限量</span>
+        <span class="vc weapon">咆哮者</span><span class="vc weapon">低吼者</span><span class="vc weapon">呼啸者</span>
       </div>
       <div style="font-size:10px;color:#999">无新泰坦 · DP11复刻旧泰坦</div>
     </div>
     <div class="ver-box">
-      <div class="ver-box-lbl" style="color:#1565c0">0210（春节版）</div>
+      <div class="ver-box-lbl" style="color:#1565c0">0210 泰特（春节版）</div>
       <div class="ver-content">
-        <span class="vc mech">Teth</span><span class="vc sp">SE Teth ★限量</span>
-        <span class="vc weapon">Pshent</span><span class="vc weapon">Deshret</span><span class="vc weapon">Hedjet</span>
-        <span class="vc titan">Bersagliere</span><span class="vc weapon">Vendicatore</span>
+        <span class="vc mech">泰特</span><span class="vc sp">精英泰特 ★限量</span>
+        <span class="vc weapon">双冠</span><span class="vc weapon">红冠</span><span class="vc weapon">白冠</span>
+        <span class="vc titan">神枪手</span><span class="vc weapon">报复者</span>
       </div>
       <div style="font-size:10px;color:#999">春节假期加成</div>
     </div>
     <div class="ver-box">
-      <div class="ver-box-lbl" style="color:#555">0115</div>
+      <div class="ver-box-lbl" style="color:#555">0115 探路者</div>
       <div class="ver-content">
-        <span class="vc mech">Pathfinder</span>
-        <span class="vc weapon">Jotunn</span><span class="vc weapon">Chione</span><span class="vc weapon">Morana</span>
+        <span class="vc mech">探路者</span>
+        <span class="vc weapon">约顿</span><span class="vc weapon">奇永</span><span class="vc weapon">莫拉纳</span>
       </div>
       <div style="font-size:10px;color:#999">辅助型机甲 · 无新泰坦</div>
     </div>
     <div class="ver-box">
-      <div class="ver-box-lbl" style="color:#555">1209</div>
+      <div class="ver-box-lbl" style="color:#555">1209 雷克斯+拳击手</div>
       <div class="ver-content">
-        <span class="vc mech">Rex</span><span class="vc sp">Blaze Rex ★限量</span>
-        <span class="vc weapon">Elox</span><span class="vc weapon">Murix</span>
-        <span class="vc titan">Mauler</span><span class="vc weapon">Anguisher</span><span class="vc weapon">Ruiner</span>
+        <span class="vc mech">雷克斯</span><span class="vc sp">炎雷克斯 ★限量</span>
+        <span class="vc weapon">埃洛克斯</span><span class="vc weapon">穆瑞克斯</span>
+        <span class="vc titan">拳击手</span><span class="vc weapon">悲恸者</span><span class="vc weapon">毁灭者</span>
       </div>
     </div>
   </div>
@@ -131,15 +197,26 @@ tr:hover td{background:#eef2ff}
   <div class="con-list">
     <div class="con-item">
       <div class="con-num">1</div>
-      <div class="con-text">首周总收入 <strong>431.9万</strong>，日均 <strong>61.7万</strong>。对比0210版本日均98.6万（-37%），差距主因是<strong>春节假期DAU红利</strong>：0210日均DAU 9.86万，本期日均DAU <strong>8.57万</strong>，低14%；但大R ARPPU（<strong>91.94元</strong> vs 0210的 114.24元）也有落差，说明0317单次购买力低于同时有机甲+泰坦的0210版本。</div>
+      <div class="con-text">
+        <strong>首周总收入 <span class="num-dn">431.9万</span>，日均 <span class="num-dn">61.7万</span>，较0210春节版 <span class="num-dn">-18.6%</span>。</strong>
+        收入差距有三重成因：①<strong>春节DAU红利</strong>：0210日均DAU <span class="num-dn">9.86万</span> vs 本期 <span class="num-dn">8.57万</span>（<span class="num-dn">-13%</span>），节假日自然衰退；②<strong>内容广度</strong>：0210同时投放泰特机甲+神枪手泰坦，双线吸引付费；0317仅兀鹫机甲+复刻DP11，单线产品拉力弱于双线；③<strong>单次购买力</strong>：ARPPU <span class="num-dn">91.94元</span> vs 0210的 <span class="num-dn">114.24元</span>（<span class="num-dn">-19.5%</span>），泰坦DP11缺席导致大R养成消耗路径变窄，是ARPPU下降的主因。<em>风险提示：兀鹫出战率22.4%居历史新高，若平衡性引发高R外流需二次关注收入衰减速度。</em>
+      </div>
     </div>
     <div class="con-item">
       <div class="con-num">2</div>
-      <div class="con-text">WAU（周去重活跃）<strong>18.5万</strong>，高于0115（17.7万）和1209（16.4万），低于0210（23.0万，春节峰值）约19.5%。<strong>关键亮点：100-1000元以上所有付费档位WAU均为近期四版本最高</strong>（大R 2,142人超0210的2,109人），说明Condor对付费玩家吸引力甚至超越春节版本；0-100档低于0210系春节效应，非内容问题。</div>
+      <div class="con-text">
+        <strong>WAU <span class="num-dn">18.5万</span>，较0210 <span class="num-dn">-19.5%</span>；但高付费档位WAU全线 <span class="num-up">超越春节版本</span>。</strong>
+        100-1000元档 <span class="num-up">19,602人（+6.1% vs 0210）</span>，大R（20000+）<span class="num-up">2,136人（+2.3% vs 0210）</span>——剔除春节基数后，兀鹫对付费玩家的内容吸引力超过节假日效应。
+        <strong style="color:#c62828">⚠️ 风险：回流玩家仅 <span class="num-dn">12.1%（22,461人）</span>，较其他版本平均 <span class="num-dn">低5-7个百分点</span>，说明兀鹫的强度卖点未能有效触达流失玩家；若召回率持续低位，WAU长期天花板将收窄。</strong>
+      </div>
     </div>
     <div class="con-item">
       <div class="con-num">3</div>
-      <div class="con-text">数据板占比 <strong>69.6%</strong>，多池覆盖策略有效。银币+5.4%（机甲养成旺盛），金币+12%（加速需求强）；铂金 <strong>-41.4%</strong> vs 0210属预期内回落（0210有新泰坦Bersagliere）；模组已连续低位（vs 0115持平），需关注商业化迭代。</div>
+      <div class="con-text">
+        <strong>养成消耗：银币 <span class="num-up">+5.4%</span>、金币 <span class="num-up">+12%</span>，铂金 <span class="num-dn">-41.4%</span>，模组 <span class="num-dn">-33.6%</span>。</strong>
+        银币消耗主力为泰特/雷克斯（历史内容补强），兀鹫养成需求滞后1-2周才会全量释放，预计第2-3周银币消耗继续攀升；铂金-41%完全因无新泰坦DP（vs 0115同无新泰坦反而 <span class="num-up">+82%</span>，说明兀鹫带动了泰坦补强需求）；<strong style="color:#c62828">⚠️ 模组连续两版本持平约9.1万，需求饱和信号明确，建议尽快规划新模组品类投放。</strong>
+        数据板核心增长点：DP10（兀鹫标准池） <span class="num-up">+63%</span>、DP12（竞速兀鹫限量池）ARPPU <span class="num-up">1,982元</span>逐版本创新高，验证强力输出机甲的大R付费吸引力模型有效。
+      </div>
     </div>
   </div>
 </div>
@@ -147,24 +224,41 @@ tr:hover td{background:#eef2ff}
 <!-- 汇总指标 -->
 <div class="card">
   <div class="card-title">1.1 核心指标汇总</div>
-  <div class="kpi-row">
-    <div class="kpi"><div class="kpi-lbl">首周总收入</div><div class="kpi-val r">431.9万</div><div class="kpi-delta nt">日均 61.7万</div><div class="kpi-tip">版本上线7天内IAP总流水</div></div>
-    <div class="kpi"><div class="kpi-lbl">版更首日</div><div class="kpi-val">69.8万</div><div class="kpi-delta nt">3/17（周一）</div><div class="kpi-tip">版本上线当天收入，衡量新内容首发爆发力</div></div>
-    <div class="kpi"><div class="kpi-lbl">周末峰值</div><div class="kpi-val">83.7万</div><div class="kpi-delta nt">3/21（周六）</div><div class="kpi-tip">周末玩家在线高峰对应的单日最高收入</div></div>
-    <div class="kpi"><div class="kpi-lbl">日均DAU</div><div class="kpi-val b">85,704</div><div class="kpi-delta dn">-13.1% vs 0210</div><div class="kpi-tip">每日活跃用户数均值（含重复登录同一玩家）</div></div>
-    <div class="kpi"><div class="kpi-lbl">WAU（周去重）</div><div class="kpi-val">18.5万</div><div class="kpi-delta dn">-19.5% vs 0210</div><div class="kpi-tip">7天内出现过至少1次的独立玩家数</div></div>
-    <div class="kpi"><div class="kpi-lbl">日均新增</div><div class="kpi-val">5,460</div><div class="kpi-delta dn">-34.9% vs 0210</div><div class="kpi-tip">每日首次登录的新注册玩家数（churn_days=0且regdate=ddate）</div></div>
-    <div class="kpi"><div class="kpi-lbl">日均付费人数</div><div class="kpi-val">6,711</div><div class="kpi-delta up">+1.1% vs 0210</div><div class="kpi-tip">每日完成至少1笔充值的独立玩家数</div></div>
-    <div class="kpi"><div class="kpi-lbl">ARPU</div><div class="kpi-val">7.20</div><div class="kpi-delta dn">-6.4% vs 0210</div><div class="kpi-tip">每活跃用户平均收入 = 总收入 ÷ 总DAU人次</div></div>
-    <div class="kpi"><div class="kpi-lbl">ARPPU</div><div class="kpi-val">91.94</div><div class="kpi-delta dn">-19.5% vs 0210</div><div class="kpi-tip">每付费用户平均收入 = 总收入 ÷ 总付费人次，反映单次购买力</div></div>
+
+  <div class="kpi-group">
+    <span class="kpi-group-lbl">💰 收入</span>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-lbl">首周总收入</div><div class="kpi-val r">431.9万</div><div class="kpi-delta nt">日均 61.7万</div><div class="kpi-tip">版本上线7天内IAP总流水</div></div>
+      <div class="kpi"><div class="kpi-lbl">版更首日</div><div class="kpi-val">69.8万</div><div class="kpi-delta nt">3/17（周一）</div><div class="kpi-tip">版本上线当天收入，衡量新内容首发爆发力</div></div>
+      <div class="kpi"><div class="kpi-lbl">周末峰值</div><div class="kpi-val">83.7万</div><div class="kpi-delta nt">3/21（周六）</div><div class="kpi-tip">周末在线高峰对应的单日最高收入</div></div>
+    </div>
+  </div>
+
+  <div class="kpi-group">
+    <span class="kpi-group-lbl">👥 活跃 / 用户</span>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-lbl">日均DAU</div><div class="kpi-val b">85,704</div><div class="kpi-delta dn">-13.1% vs 0210</div><div class="kpi-tip">每日活跃用户数均值（含重复登录同一玩家）</div></div>
+      <div class="kpi"><div class="kpi-lbl">WAU（周去重）</div><div class="kpi-val">18.5万</div><div class="kpi-delta dn">-19.5% vs 0210</div><div class="kpi-tip">7天内出现过至少1次的独立玩家数</div></div>
+      <div class="kpi"><div class="kpi-lbl">日均新增</div><div class="kpi-val">5,460</div><div class="kpi-delta dn">-34.9% vs 0210</div><div class="kpi-tip">每日首次登录的新注册玩家数</div></div>
+      <div class="kpi"><div class="kpi-lbl">日均付费人数</div><div class="kpi-val">6,711</div><div class="kpi-delta up">+1.1% vs 0210</div><div class="kpi-tip">每日完成至少1笔充值的独立玩家数</div></div>
+    </div>
+  </div>
+
+  <div class="kpi-group">
+    <span class="kpi-group-lbl">📊 复合指标</span>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-lbl">ARPU</div><div class="kpi-val">7.20</div><div class="kpi-delta dn">-6.4% vs 0210</div><div class="kpi-tip">每活跃用户平均收入 = 总收入 ÷ 总DAU人次</div></div>
+      <div class="kpi"><div class="kpi-lbl">ARPPU</div><div class="kpi-val">91.94</div><div class="kpi-delta dn">-19.5% vs 0210</div><div class="kpi-tip">每付费用户平均收入 = 总收入 ÷ 总付费人次</div></div>
+      <div class="kpi"><div class="kpi-lbl">付费率</div><div class="kpi-val g">7.83%</div><div class="kpi-delta up">+7.2% vs 0210</div><div class="kpi-tip">日均付费人数 ÷ 日均DAU</div></div>
+    </div>
   </div>
 
   <div class="card-sub">各版本首周对比</div>
   <div class="vc-compare">
-    <div class="vcc cur"><div class="vcc-ver">0317 Condor（本期）</div><div class="vcc-amt">431.9万</div><div class="vcc-sub">WAU 18.5万 · DAU 8.6万</div></div>
-    <div class="vcc"><div class="vcc-ver">0210 Teth+Bersagliere（春节）</div><div class="vcc-amt">530.7万</div><div class="vcc-sub">WAU 23.0万 · DAU 9.9万</div></div>
-    <div class="vcc"><div class="vcc-ver">0115 Pathfinder</div><div class="vcc-amt">337.1万</div><div class="vcc-sub">WAU 17.7万 · DAU 7.7万</div></div>
-    <div class="vcc"><div class="vcc-ver">1209 Rex+Mauler</div><div class="vcc-amt">446.5万</div><div class="vcc-sub">WAU 16.4万 · DAU 6.4万</div></div>
+    <div class="vcc cur"><div class="vcc-ver">0317 兀鹫（本期）</div><div class="vcc-amt">431.9万</div><div class="vcc-sub">WAU 18.5万 · DAU 8.6万</div></div>
+    <div class="vcc"><div class="vcc-ver">0210 泰特+神枪手（春节）</div><div class="vcc-amt">530.7万</div><div class="vcc-sub">WAU 23.0万 · DAU 9.9万</div></div>
+    <div class="vcc"><div class="vcc-ver">0115 探路者</div><div class="vcc-amt">337.1万</div><div class="vcc-sub">WAU 17.7万 · DAU 7.7万</div></div>
+    <div class="vcc"><div class="vcc-ver">1209 雷克斯+拳击手</div><div class="vcc-amt">446.5万</div><div class="vcc-sub">WAU 16.4万 · DAU 6.4万</div></div>
   </div>
   <div class="ins b">💡 剔除春节假期（0210 DAU高出约14%），0317收入表现与0210基本相当；较0115辅助机甲版本收入+28%，较1209（机甲+泰坦）低3%，强力输出机甲商业表现稳居中高档。</div>
 
@@ -187,30 +281,30 @@ tr:hover td{background:#eef2ff}
   <table style="margin-top:10px">
     <thead><tr><th>版本</th><th class="tr">WAU</th><th class="tr">新增</th><th class="tr">回流</th><th class="tr">存量</th><th class="tr">100-1000</th><th class="tr">1000-5000</th><th class="tr">5000-20000</th><th class="tr">20000+</th></tr></thead>
     <tbody>
-      <tr><td>1209 Rex+Mauler</td><td class="tr bold">164,120</td><td class="tr">37,728 (23.0%)</td><td class="tr">26,123 (15.9%)</td><td class="tr">100,269 (61.1%)</td><td class="tr">14,724</td><td class="tr">11,557</td><td class="tr">5,313</td><td class="tr">2,019</td></tr>
-      <tr><td>0115 Pathfinder</td><td class="tr bold">176,987</td><td class="tr">37,361 (21.1%)</td><td class="tr">28,767 (16.3%)</td><td class="tr">110,859 (62.6%)</td><td class="tr">16,271</td><td class="tr">12,018</td><td class="tr">5,358</td><td class="tr">1,972</td></tr>
-      <tr><td>0210 Teth（春节）</td><td class="tr bold">229,901</td><td class="tr up-t bold">58,726 (25.5%)</td><td class="tr up-t bold">43,325 (18.8%)</td><td class="tr">127,850 (55.6%)</td><td class="tr">18,480</td><td class="tr">13,134</td><td class="tr">5,691</td><td class="tr">2,088</td></tr>
-      <tr style="background:#fff5f5"><td><strong>0317 Condor</strong></td><td class="tr bold up-t">185,091</td><td class="tr">38,224 (20.7%)</td><td class="tr dn-t">22,461 (12.1%)</td><td class="tr bold">124,406 (67.2%)</td><td class="tr up-t bold">19,602</td><td class="tr up-t bold">13,704</td><td class="tr up-t bold">5,997</td><td class="tr up-t bold">2,136</td></tr>
+      <tr><td>1209 雷克斯+拳击手</td><td class="tr bold">164,120</td><td class="tr">37,728 (23.0%)</td><td class="tr">26,123 (15.9%)</td><td class="tr">100,269 (61.1%)</td><td class="tr">14,724</td><td class="tr">11,557</td><td class="tr">5,313</td><td class="tr">2,019</td></tr>
+      <tr><td>0115 探路者</td><td class="tr bold">176,987</td><td class="tr">37,361 (21.1%)</td><td class="tr">28,767 (16.3%)</td><td class="tr">110,859 (62.6%)</td><td class="tr">16,271</td><td class="tr">12,018</td><td class="tr">5,358</td><td class="tr">1,972</td></tr>
+      <tr><td>0210 泰特（春节）</td><td class="tr bold">229,901</td><td class="tr up-t bold">58,726 (25.5%)</td><td class="tr up-t bold">43,325 (18.8%)</td><td class="tr">127,850 (55.6%)</td><td class="tr">18,480</td><td class="tr">13,134</td><td class="tr">5,691</td><td class="tr">2,088</td></tr>
+      <tr style="background:#fff5f5"><td><strong>0317 兀鹫</strong></td><td class="tr bold up-t">185,091</td><td class="tr">38,224 (20.7%)</td><td class="tr dn-t">22,461 (12.1%)</td><td class="tr bold">124,406 (67.2%)</td><td class="tr up-t bold">19,602</td><td class="tr up-t bold">13,704</td><td class="tr up-t bold">5,997</td><td class="tr up-t bold">2,136</td></tr>
     </tbody>
   </table>
-  <div class="ins g">✅ <strong>100元以上所有付费档位WAU均创四版本最高</strong>，大R 2,136人超0210春节（2,088人）——Condor对付费玩家吸引力超越春节版。存量玩家占比67.2%为四版本最高，核心付费盘稳固。</div>
-  <div class="ins y">⚠️ 回流玩家仅12.1%（22,461人），显著低于其他版本（16-19%），说明0317版本对流失玩家的召回效果偏弱；新增20.7%也低于0210，建议买量素材强化Condor强度卖点以提升拉新/召回效率。</div>
+  <div class="ins g">✅ <strong>100元以上所有付费档位WAU均创四版本最高</strong>，大R 2,136人超0210春节（2,088人）——兀鹫(兀鹫)对付费玩家吸引力超越春节版。存量玩家占比67.2%为四版本最高，核心付费盘稳固。</div>
+  <div class="ins y">⚠️ 回流玩家仅12.1%（22,461人），显著低于其他版本（16-19%），说明0317版本对流失玩家的召回效果偏弱；新增20.7%也低于0210，建议买量素材强化兀鹫(兀鹫)强度卖点以提升拉新/召回效率。</div>
 
   <div class="card-sub">2.3 分R日均DAU对比</div>
   <div id="chart-active" class="chart-sm"></div>
-  <div class="ins g" style="margin-top:8px">✅ 大R（20000+）及中高R（5000-20000）活跃均超0210同期，印证Condor对高付费玩家驱动力强。低R差距主因春节效应（约占差距80%以上）。</div>
+  <div class="ins g" style="margin-top:8px">✅ 大R（20000+）及中高R（5000-20000）活跃均超0210同期，印证兀鹫(兀鹫)对高付费玩家驱动力强。低R差距主因春节效应（约占差距80%以上）。</div>
 
   <div class="card-sub">2.4 日均新增 & 回流</div>
   <table>
     <thead><tr><th>版本</th><th class="tr">日均DAU</th><th class="tr">日均新增</th><th class="tr">日均回流</th><th class="tr">日均付费人数</th><th class="tr">ARPU</th><th class="tr">ARPPU</th></tr></thead>
     <tbody>
-      <tr><td>1209 Rex+Mauler</td><td class="tr">64,132</td><td class="tr">5,389</td><td class="tr">3,733</td><td class="tr">4,011</td><td class="tr">9.95</td><td class="tr">159.03</td></tr>
-      <tr><td>0115 Pathfinder</td><td class="tr">76,626</td><td class="tr">5,337</td><td class="tr">4,110</td><td class="tr">5,195</td><td class="tr">6.28</td><td class="tr">92.68</td></tr>
-      <tr><td>0210 Teth+Bersagliere（春节）</td><td class="tr">98,589</td><td class="tr bold">8,389</td><td class="tr bold">6,191</td><td class="tr">6,635</td><td class="tr">7.69</td><td class="tr">114.24</td></tr>
-      <tr style="background:#fff5f5"><td><strong>0317 Condor</strong></td><td class="tr bold">85,704</td><td class="tr">5,460</td><td class="tr">3,209</td><td class="tr bold up-t">6,711</td><td class="tr">7.20</td><td class="tr">91.94</td></tr>
+      <tr><td>1209 雷克斯+拳击手</td><td class="tr">64,132</td><td class="tr">5,389</td><td class="tr">3,733</td><td class="tr">4,011</td><td class="tr">9.95</td><td class="tr">159.03</td></tr>
+      <tr><td>0115 探路者</td><td class="tr">76,626</td><td class="tr">5,337</td><td class="tr">4,110</td><td class="tr">5,195</td><td class="tr">6.28</td><td class="tr">92.68</td></tr>
+      <tr><td>0210 泰特+神枪手（春节）</td><td class="tr">98,589</td><td class="tr bold">8,389</td><td class="tr bold">6,191</td><td class="tr">6,635</td><td class="tr">7.69</td><td class="tr">114.24</td></tr>
+      <tr style="background:#fff5f5"><td><strong>0317 兀鹫</strong></td><td class="tr bold">85,704</td><td class="tr">5,460</td><td class="tr">3,209</td><td class="tr bold up-t">6,711</td><td class="tr">7.20</td><td class="tr">91.94</td></tr>
     </tbody>
   </table>
-  <div class="ins b">📌 0317日均付费人数6,711，<strong>高于1209（4,011）和0115（5,195）</strong>，仅略低于0210（6,635，春节）。说明Condor对付费转化效率高——DAU不是最高，但付费人数接近春节版本水平。</div>
+  <div class="ins b">📌 0317日均付费人数6,711，<strong>高于1209（4,011）和0115（5,195）</strong>，仅略低于0210（6,635，春节）。说明兀鹫(兀鹫)对付费转化效率高——DAU不是最高，但付费人数接近春节版本水平。</div>
 </div>
 
 <!-- 收入分析 -->
@@ -220,7 +314,7 @@ tr:hover td{background:#eef2ff}
   <div class="card-sub">3.1 分R收入（首周合计，4版本对比）</div>
   <div id="chart-r" style="width:100%;height:220px"></div>
   <table style="margin-top:8px">
-    <thead><tr><th>档位</th><th class="tr">0317 Condor</th><th class="tr">0210 Teth（春节）</th><th class="tr">0115 Pathfinder</th><th class="tr">1209 Rex+Mauler</th><th class="tr">vs 0210</th></tr></thead>
+    <thead><tr><th>档位</th><th class="tr">0317 兀鹫</th><th class="tr">0210 泰特（春节）</th><th class="tr">0115 探路者</th><th class="tr">1209 雷克斯+拳击手</th><th class="tr">vs 0210</th></tr></thead>
     <tbody>
       <tr><td>0-100元</td><td class="tr">8.9万</td><td class="tr">10.7万</td><td class="tr">6.4万</td><td class="tr">5.9万</td><td class="tr" style="color:#c62828">-16.8%</td></tr>
       <tr><td>100-1000元</td><td class="tr">52.2万</td><td class="tr">65.6万</td><td class="tr">39.2万</td><td class="tr">39.8万</td><td class="tr" style="color:#c62828">-20.4%</td></tr>
@@ -229,7 +323,7 @@ tr:hover td{background:#eef2ff}
       <tr><td>20000+元</td><td class="tr">182.8万</td><td class="tr">221.7万</td><td class="tr">141.7万</td><td class="tr">227.6万</td><td class="tr" style="color:#c62828">-17.5%</td></tr>
     </tbody>
   </table>
-  <div class="ins y">⚠️ 0317各档位收入均低于0210，但差距集中在DAU总量差异（0210春节DAU高14%）；大R（20000+）人均ARPPU实为1,120元，高于0210（838元）+33.6%，说明付费行为更集中于高付费群体。0317 vs 1209：20000+低于1209（227.6万），因1209包含Rex+Mauler双新内容且无春节因素。</div>
+  <div class="ins y">⚠️ 0317各档位收入均低于0210，但差距集中在DAU总量差异（0210春节DAU高14%）；大R（20000+）人均ARPPU实为1,120元，高于0210（838元）+33.6%，说明付费行为更集中于高付费群体。0317 vs 1209：20000+低于1209（227.6万），因1209包含雷克斯+拳击手双新内容且无春节因素。</div>
 
   <div class="card-sub" style="margin-top:12px">3.2 分R人均ARPPU（元/付费人·首周）</div>
   <table>
@@ -253,41 +347,42 @@ tr:hover td{background:#eef2ff}
       <tr><td>金三角</td><td class="tr">121,855</td><td class="tr">114,016</td><td class="tr">173,963</td><td class="tr" style="color:#2e7d32">+6.9%</td><td class="tr" style="color:#c62828">-30.0%</td></tr>
     </tbody>
   </table>
-  <div class="ins y">⚠️ <strong>银币+5.4%</strong>：resource_daily显示银币消耗TOP1-2为Teth（270,881M）和Rex（269,220M），而非Condor——说明本期新增用户和老玩家在快速养成0210/1209版本的新机甲，Condor本身还不是消耗主力，预计第2-3周银币消耗会随Condor玩家升级而攀升。<br>⚠️ <strong>铂金-41%</strong>：0317无新泰坦DP，消耗TOP为Mauler/Ruiner（1209旧泰坦），与0210有Bersagliere新泰坦相比需求自然回落；vs 0115（同无新泰坦）+82%，说明Condor带动了泰坦补强需求。<br>⚠️ <strong>模组连续两版本持平~9.1万</strong>，需求趋于饱和，建议评估新模组类型投放。</div>
+  <div class="ins y">⚠️ <strong>银币+5.4%</strong>：resource_daily显示银币消耗TOP1-2为泰特（270,881M）和雷克斯（269,220M），而非兀鹫——说明本期新增用户和老玩家在快速养成0210/1209版本的新机甲，兀鹫本身还不是消耗主力，预计第2-3周银币消耗会随兀鹫玩家升级而攀升。<br>⚠️ <strong>铂金-41%</strong>：0317无新泰坦DP，消耗TOP为拳击手/毁灭者（1209旧泰坦），与0210有神枪手新泰坦相比需求自然回落；vs 0115（同无新泰坦）+82%，说明兀鹫带动了泰坦补强需求。<br>⚠️ <strong>模组连续两版本持平~9.1万</strong>，需求趋于饱和，建议评估新模组类型投放。</div>
 
   <div class="card-sub" style="margin-top:12px">3.4 数据板（DP）各档位收入详析</div>
   <div id="chart-dp" style="width:100%;height:260px"></div>
   <table style="margin-top:8px;font-size:11px">
     <thead><tr><th>DP</th><th>内容描述</th><th class="tr">0317</th><th class="tr">0210</th><th class="tr">0115</th><th class="tr">1209</th><th class="tr">vs 0210</th><th class="tr">归因</th></tr></thead>
     <tbody>
-      <tr><td>DP12</td><td>限量机甲池（Sport Condor / SE Teth / Blaze Rex）</td><td class="tr">49.3万</td><td class="tr">52.3万</td><td class="tr">0.2万</td><td class="tr">44.9万</td><td class="tr" style="color:#c62828">-5.7%</td><td>0317 DP12=Sport Condor，稳定</td></tr>
+      <tr><td>DP12</td><td>限量机甲池（竞速兀鹫 / 精英泰特 / 炎雷克斯）</td><td class="tr">49.3万</td><td class="tr">52.3万</td><td class="tr">0.2万</td><td class="tr">44.9万</td><td class="tr" style="color:#c62828">-5.7%</td><td>0317 DP12=竞速兀鹫，稳定</td></tr>
       <tr><td>DP11</td><td>新泰坦池（0317=复刻旧泰坦DP11）</td><td class="tr">6.0万</td><td class="tr">39.9万</td><td class="tr">16.4万</td><td class="tr">93.7万</td><td class="tr" style="color:#c62828">-85%</td><td>0317无新泰坦，复刻吸引力低</td></tr>
-      <tr><td>DP10</td><td>纯净机甲池（Condor标准版）</td><td class="tr">29.1万</td><td class="tr">17.8万</td><td class="tr">8.2万</td><td class="tr">19.1万</td><td class="tr" style="color:#2e7d32">+63%</td><td>Condor强度驱动DP8/10大R消费</td></tr>
-      <tr><td>DP8</td><td>保底机甲池（大R必中）</td><td class="tr">16.4万</td><td class="tr">14.3万</td><td class="tr">12.1万</td><td class="tr">9.0万</td><td class="tr" style="color:#2e7d32">+14%</td><td>大R稳步增长，Condor拉动</td></tr>
-      <tr><td>DP7</td><td>泰坦/武器池</td><td class="tr">12.6万</td><td class="tr">20.6万</td><td class="tr">6.9万</td><td class="tr">4.7万</td><td class="tr" style="color:#c62828">-39%</td><td>0210有Bersagliere新泰坦武器，0317需求回落</td></tr>
+      <tr><td>DP10</td><td>纯净机甲池（兀鹫标准版）</td><td class="tr">29.1万</td><td class="tr">17.8万</td><td class="tr">8.2万</td><td class="tr">19.1万</td><td class="tr" style="color:#2e7d32">+63%</td><td>兀鹫强度驱动DP8/10大R消费</td></tr>
+      <tr><td>DP8</td><td>保底机甲池（大R必中）</td><td class="tr">16.4万</td><td class="tr">14.3万</td><td class="tr">12.1万</td><td class="tr">9.0万</td><td class="tr" style="color:#2e7d32">+14%</td><td>大R稳步增长，兀鹫拉动</td></tr>
+      <tr><td>DP7</td><td>泰坦/武器池</td><td class="tr">12.6万</td><td class="tr">20.6万</td><td class="tr">6.9万</td><td class="tr">4.7万</td><td class="tr" style="color:#c62828">-39%</td><td>0210有神枪手新泰坦武器，0317需求回落</td></tr>
       <tr><td>DP3</td><td>中阶机甲/武器池</td><td class="tr">16.2万</td><td class="tr">17.4万</td><td class="tr">19.5万</td><td class="tr">15.0万</td><td class="tr" style="color:#c62828">-7%</td><td>平稳，无明显异动</td></tr>
-      <tr><td>DP2</td><td>武器/配件专属池</td><td class="tr">15.9万</td><td class="tr">14.7万</td><td class="tr">24.0万</td><td class="tr">14.6万</td><td class="tr" style="color:#2e7d32">+8%</td><td>0115 Pathfinder武器池收益高（辅助机甲武器需求强）</td></tr>
+      <tr><td>DP2</td><td>武器/配件专属池</td><td class="tr">15.9万</td><td class="tr">14.7万</td><td class="tr">24.0万</td><td class="tr">14.6万</td><td class="tr" style="color:#2e7d32">+8%</td><td>0115 探路者武器池收益高（辅助机甲武器需求强）</td></tr>
       <tr><td>DP1</td><td>基础入门池</td><td class="tr">15.4万</td><td class="tr">22.0万</td><td class="tr">15.4万</td><td class="tr">17.2万</td><td class="tr" style="color:#c62828">-30%</td><td>0210春节新增玩家多带动入门消费</td></tr>
     </tbody>
   </table>
-  <div class="ins b">📌 <strong>DP10（+63%）+ DP8（+14%）是0317核心增长点</strong>，Condor标准版（DP10）吸引力强；DP12（Sport Condor）49.3万接近0210 SE Teth（52.3万），限量定位成功。DP11拖累最大（-85%）：无新泰坦是主因，若下版本上新泰坦DP11预计可恢复30-40万量级。</div>
+  <div class="ins b">📌 <strong>DP10（+63%）+ DP8（+14%）是0317核心增长点</strong>，兀鹫标准版（DP10）吸引力强；DP12（竞速兀鹫）49.3万接近0210 精英泰特（52.3万），限量定位成功。DP11拖累最大（-85%）：无新泰坦是主因，若下版本上新泰坦DP11预计可恢复30-40万量级。</div>
 
   <div class="card-sub" style="margin-top:12px">3.5 各DP ARPPU（元/付费人·首周）</div>
   <div id="chart-dp-arppu" style="width:100%;height:220px"></div>
-  <div class="ins b">📌 <strong>DP12 ARPPU 1,982元（0317）> 0210（1,894元）> 1209（1,686元）</strong>，限量池单次购买力逐版本提升，说明大R对高质量限量内容溢价接受度在上升。DP10（Condor标准版）ARPPU 383元，高于0210（322元），Condor强度使大R愿意多抽。</div>
+  <div class="ins b">📌 <strong>DP12 ARPPU 1,982元（0317）> 0210（1,894元）> 1209（1,686元）</strong>，限量池单次购买力逐版本提升，说明大R对高质量限量内容溢价接受度在上升。DP10（兀鹫标准版）ARPPU 383元，高于0210（322元），兀鹫(兀鹫)强度使大R愿意多抽。</div>
 </div>
 
 <!-- 平衡性 -->
 <div class="card">
   <div class="card-title">3.6 平衡性问题</div>
-  <div class="card-sub" style="margin-bottom:8px">机甲出战率 / 均伤对比（数据截至2026-03-16，版本上线前基线周）</div>
-  <div id="chart-balance" style="width:100%;height:200px"></div>
+  <div class="card-sub" style="margin-bottom:8px">机甲出战率 / 均伤对比（各版本首周快照：1209=12-15, 0115=01-19, 0210=02-09, 0317=03-16）</div>
+  <div id="chart-balance" style="width:100%;height:340px"></div>
   <table style="margin-top:8px">
-    <thead><tr><th>机甲</th><th class="tr">持有率</th><th class="tr">出战率</th><th class="tr">均伤/场</th><th class="tr">vs Teth发布周</th><th class="tr">vs Rex发布周</th></tr></thead>
+    <thead><tr><th>机甲</th><th class="tr">持有率</th><th class="tr">出战率</th><th class="tr">均伤/场</th><th class="tr">vs 泰特首周</th><th class="tr">vs 雷克斯首周</th></tr></thead>
     <tbody>
-      <tr style="background:#fff5f5"><td>Condor（0317）</td><td class="tr">0.7%</td><td class="tr" style="color:#c62828;font-weight:600">22.4%</td><td class="tr" style="color:#c62828;font-weight:600">2,971,127</td><td class="tr">出战+29% 均伤+72%</td><td class="tr">出战+71% 均伤+163%</td></tr>
-      <tr><td>Teth（0210发布周）</td><td class="tr">0.8%</td><td class="tr">17.4%</td><td class="tr">1,721,980</td><td class="tr" style="color:#888">—</td><td class="tr">—</td></tr>
-      <tr><td>Rex（1209发布周）</td><td class="tr">1.6%</td><td class="tr">13.1%</td><td class="tr">1,127,250</td><td class="tr">—</td><td class="tr" style="color:#888">—</td></tr>
+      <tr style="background:#fff5f5"><td>兀鹫（0317首周）</td><td class="tr">0.7%</td><td class="tr" style="color:#c62828;font-weight:600">22.4%</td><td class="tr" style="color:#c62828;font-weight:600">2,971,127</td><td class="tr">出战+29% 均伤+72%</td><td class="tr">出战+71% 均伤+163%</td></tr>
+      <tr><td>泰特（0210首周）</td><td class="tr">0.8%</td><td class="tr">17.4%</td><td class="tr">1,721,980</td><td class="tr" style="color:#888">—</td><td class="tr">—</td></tr>
+      <tr><td>探路者（0115首周）</td><td class="tr">1.4%</td><td class="tr">7.5%</td><td class="tr">518,703</td><td class="tr">—</td><td class="tr">—</td></tr>
+      <tr><td>雷克斯（1209首周）</td><td class="tr">1.6%</td><td class="tr">13.1%</td><td class="tr">1,127,250</td><td class="tr">—</td><td class="tr" style="color:#888">—</td></tr>
     </tbody>
   </table>
 
@@ -296,20 +391,20 @@ tr:hover td{background:#eef2ff}
     <thead><tr><th>内容</th><th>数据异动</th><th class="tc" style="white-space:nowrap;width:70px">风险</th><th>建议</th></tr></thead>
     <tbody>
       <tr>
-        <td>Condor（强力输出）</td>
-        <td>出战率22.4%居全机甲第一，均伤297万是Teth发布周的1.72倍；持有率仅0.7%，少量大R高强碾压</td>
+        <td>兀鹫（强力输出）</td>
+        <td>出战率22.4%居全机甲第一，均伤297万是泰特(泰特)首周的1.72倍、雷克斯(雷克斯)首周的2.63倍；持有率仅0.7%，少量大R高强碾压</td>
         <td class="tc" style="white-space:nowrap"><span class="badge bw">⚠️ 高</span></td>
         <td>2-3周持续监控出战率走势，若持有率上升后出战率仍≥18%则启动数值评估</td>
       </tr>
       <tr>
-        <td>Condor / Sport Condor（数据说明）</td>
-        <td>battle_data不区分限量版与非限量版，均合并统计为Condor；Sport Condor消费已体现在DP12 ARPPU +4.6%中</td>
+        <td>兀鹫 / 竞速兀鹫（数据说明）</td>
+        <td>battle_data不区分限量版与非限量版，均合并统计为兀鹫；竞速兀鹫消费已体现在DP12 ARPPU +4.6%中</td>
         <td class="tc" style="white-space:nowrap"><span class="badge bi">ℹ️ 观察</span></td>
-        <td>下版本持续追踪Condor出战率衰减曲线，评估调平时机</td>
+        <td>下版本持续追踪兀鹫出战率衰减曲线，评估调平时机</td>
       </tr>
     </tbody>
   </table>
-  <div class="ins r">🔴 Condor出战率+均伤均为近期新机甲最高，低持有率下极易形成"少数人碾压多数人"体验；建议在3/31前完成首次评估，必要时通过数值调整干预，防止免费玩家流失加速。</div>
+  <div class="ins r">🔴 兀鹫(兀鹫)出战率+均伤均为近期新机甲最高，低持有率下极易形成"少数人碾压多数人"体验；建议在3/31前完成首次评估，必要时通过数值调整干预，防止免费玩家流失加速。</div>
 </div>
 
 <div class="footnote">
@@ -329,16 +424,16 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   var r1209=[99.2,59.3,47.7,59.2,90.2,51.0,39.9];
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){return '第'+p[0].dataIndex+'天<br>'+p.map(function(s){return s.marker+s.seriesName+': '+s.value+'万'}).join('<br>')}},
-    legend:{data:['0317 Condor','0210 Teth(春节)','0115 Pathfinder','1209 Rex+Mauler'],bottom:0,textStyle:{fontSize:10}},
+    legend:{data:['0317 兀鹫','0210 泰特（春节）','0115 探路者','1209 雷克斯+拳击手'],bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:55,left:44,right:15},
     xAxis:{type:'category',data:['D1(版更首日)','D2','D3','D4','D5','D6','D7'],axisLabel:{fontSize:9,interval:0,rotate:15}},
     yAxis:{type:'value',name:'万元',nameTextStyle:{fontSize:9},axisLabel:{fontSize:9},splitLine:{lineStyle:{type:'dashed'}}},
     series:[
-      {name:'0317 Condor',type:'line',data:r0317,smooth:true,lineStyle:{color:'#e53935',width:2.5},itemStyle:{color:'#e53935'},symbol:'circle',symbolSize:5,
+      {name:'0317 兀鹫',type:'line',data:r0317,smooth:true,lineStyle:{color:'#e53935',width:2.5},itemStyle:{color:'#e53935'},symbol:'circle',symbolSize:5,
         label:{show:true,fontSize:9,color:'#e53935',formatter:function(p){return p.value+'万'}}},
-      {name:'0210 Teth(春节)',type:'line',data:r0210,smooth:true,lineStyle:{color:'#1976d2',width:1.5,type:'dashed'},itemStyle:{color:'#1976d2'},symbol:'diamond',symbolSize:4},
-      {name:'0115 Pathfinder',type:'line',data:r0115,smooth:true,lineStyle:{color:'#a5d6a7',width:1.5},itemStyle:{color:'#43a047'},symbol:'circle',symbolSize:3},
-      {name:'1209 Rex+Mauler',type:'line',data:r1209,smooth:true,lineStyle:{color:'#bdbdbd',width:1.5},itemStyle:{color:'#757575'},symbol:'circle',symbolSize:3}
+      {name:'0210 泰特（春节）',type:'line',data:r0210,smooth:true,lineStyle:{color:'#1976d2',width:1.5,type:'dashed'},itemStyle:{color:'#1976d2'},symbol:'diamond',symbolSize:4},
+      {name:'0115 探路者',type:'line',data:r0115,smooth:true,lineStyle:{color:'#a5d6a7',width:1.5},itemStyle:{color:'#43a047'},symbol:'circle',symbolSize:3},
+      {name:'1209 雷克斯+拳击手',type:'line',data:r1209,smooth:true,lineStyle:{color:'#bdbdbd',width:1.5},itemStyle:{color:'#757575'},symbol:'circle',symbolSize:3}
     ]
   });
 })();
@@ -352,15 +447,15 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   var d1209=[52592,52886,53049,66630,89254,83186,51331];
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){return '第'+p[0].dataIndex+'天<br>'+p.map(function(s){return s.marker+s.seriesName+': '+s.value.toLocaleString()+'人'}).join('<br>')}},
-    legend:{data:['0317 Condor','0210 Teth(春节)','0115 Pathfinder','1209 Rex+Mauler'],bottom:0,textStyle:{fontSize:10}},
+    legend:{data:['0317 兀鹫','0210 泰特（春节）','0115 探路者','1209 雷克斯+拳击手'],bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:50,left:60,right:15},
     xAxis:{type:'category',data:['D1','D2','D3','D4','D5','D6','D7'],axisLabel:{fontSize:10}},
     yAxis:{type:'value',name:'人',nameTextStyle:{fontSize:9},axisLabel:{fontSize:9,formatter:function(v){return (v/10000).toFixed(0)+'万'}}},
     series:[
-      {name:'0317 Condor',type:'line',data:d0317,smooth:true,lineStyle:{color:'#e53935',width:2.5},itemStyle:{color:'#e53935'},symbol:'circle',symbolSize:5},
-      {name:'0210 Teth(春节)',type:'line',data:d0210,smooth:true,lineStyle:{color:'#1976d2',width:1.5,type:'dashed'},itemStyle:{color:'#1976d2'},symbol:'diamond',symbolSize:4},
-      {name:'0115 Pathfinder',type:'line',data:d0115,smooth:true,lineStyle:{color:'#a5d6a7',width:1.5},itemStyle:{color:'#43a047'},symbol:'circle',symbolSize:3},
-      {name:'1209 Rex+Mauler',type:'line',data:d1209,smooth:true,lineStyle:{color:'#bdbdbd',width:1.5},itemStyle:{color:'#757575'},symbol:'circle',symbolSize:3}
+      {name:'0317 兀鹫',type:'line',data:d0317,smooth:true,lineStyle:{color:'#e53935',width:2.5},itemStyle:{color:'#e53935'},symbol:'circle',symbolSize:5},
+      {name:'0210 泰特（春节）',type:'line',data:d0210,smooth:true,lineStyle:{color:'#1976d2',width:1.5,type:'dashed'},itemStyle:{color:'#1976d2'},symbol:'diamond',symbolSize:4},
+      {name:'0115 探路者',type:'line',data:d0115,smooth:true,lineStyle:{color:'#a5d6a7',width:1.5},itemStyle:{color:'#43a047'},symbol:'circle',symbolSize:3},
+      {name:'1209 雷克斯+拳击手',type:'line',data:d1209,smooth:true,lineStyle:{color:'#bdbdbd',width:1.5},itemStyle:{color:'#757575'},symbol:'circle',symbolSize:3}
     ]
   });
 })();
@@ -375,15 +470,15 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   var w0317=[143652,19602,13704,5997,2136];
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){return p[0].axisValue+'<br>'+p.map(function(s){return s.marker+s.seriesName+': '+s.value.toLocaleString()+'人'}).join('<br>')}},
-    legend:{data:['1209 Rex+Mauler','0115 Pathfinder','0210 Teth(春节)','0317 Condor'],bottom:0,textStyle:{fontSize:10}},
+    legend:{data:['1209 雷克斯+拳击手','0115 探路者','0210 泰特（春节）','0317 兀鹫'],bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:55,left:75,right:10},
     xAxis:{type:'value',axisLabel:{fontSize:9}},
     yAxis:{type:'category',data:tiers,axisLabel:{fontSize:10}},
     series:[
-      {name:'1209 Rex+Mauler',type:'bar',data:w1209,barMaxWidth:14,itemStyle:{color:'#bdbdbd'}},
-      {name:'0115 Pathfinder',type:'bar',data:w0115,barMaxWidth:14,itemStyle:{color:'#a5d6a7'}},
-      {name:'0210 Teth(春节)',type:'bar',data:w0210,barMaxWidth:14,itemStyle:{color:'#90caf9'}},
-      {name:'0317 Condor',type:'bar',data:w0317,barMaxWidth:14,itemStyle:{color:'#e53935'},
+      {name:'1209 雷克斯+拳击手',type:'bar',data:w1209,barMaxWidth:14,itemStyle:{color:'#bdbdbd'}},
+      {name:'0115 探路者',type:'bar',data:w0115,barMaxWidth:14,itemStyle:{color:'#a5d6a7'}},
+      {name:'0210 泰特（春节）',type:'bar',data:w0210,barMaxWidth:14,itemStyle:{color:'#90caf9'}},
+      {name:'0317 兀鹫',type:'bar',data:w0317,barMaxWidth:14,itemStyle:{color:'#e53935'},
         label:{show:true,position:'right',fontSize:9,formatter:function(p){return p.value.toLocaleString()}}}
     ]
   });
@@ -392,7 +487,7 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
 // WAU用户构成堆叠
 (function(){
   var c = echarts.init(document.getElementById('chart-wau2'));
-  var vers=['1209\nRex+Mauler','0115\nPathfinder','0210\nTeth(春节)','0317\nCondor'];
+  var vers=['1209\n雷克斯+拳击手','0115\n探路者','0210\n泰特（春节）','0317\n兀鹫'];
   var newU=[37728,37361,58726,38224];
   var retU=[26123,28767,43325,22461];
   var stabU=[100269,110859,127850,124406];
@@ -428,16 +523,16 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   var a1209=[37564,10090,8261,3795,1461];
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){return p[0].axisValue+'<br>'+p.map(function(s){return s.marker+s.seriesName+': '+s.value.toLocaleString()+'人'}).join('<br>')}},
-    legend:{data:['0317 Condor','0210 Teth(春节)','0115 Pathfinder','1209 Rex+Mauler'],bottom:0,textStyle:{fontSize:10}},
+    legend:{data:['0317 兀鹫','0210 泰特（春节）','0115 探路者','1209 雷克斯+拳击手'],bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:55,left:75,right:20},
     xAxis:{type:'value',axisLabel:{fontSize:9}},
     yAxis:{type:'category',data:tiers,axisLabel:{fontSize:10}},
     series:[
-      {name:'0317 Condor',type:'bar',data:a0317,barMaxWidth:14,itemStyle:{color:'#e53935'},
+      {name:'0317 兀鹫',type:'bar',data:a0317,barMaxWidth:14,itemStyle:{color:'#e53935'},
         label:{show:true,position:'right',fontSize:9,formatter:function(p){return p.value.toLocaleString()}}},
-      {name:'0210 Teth(春节)',type:'bar',data:a0210,barMaxWidth:14,itemStyle:{color:'#90caf9'}},
-      {name:'0115 Pathfinder',type:'bar',data:a0115,barMaxWidth:14,itemStyle:{color:'#a5d6a7'}},
-      {name:'1209 Rex+Mauler',type:'bar',data:a1209,barMaxWidth:14,itemStyle:{color:'#bdbdbd'}}
+      {name:'0210 泰特（春节）',type:'bar',data:a0210,barMaxWidth:14,itemStyle:{color:'#90caf9'}},
+      {name:'0115 探路者',type:'bar',data:a0115,barMaxWidth:14,itemStyle:{color:'#a5d6a7'}},
+      {name:'1209 雷克斯+拳击手',type:'bar',data:a1209,barMaxWidth:14,itemStyle:{color:'#bdbdbd'}}
     ]
   });
 })();
@@ -452,16 +547,16 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   var r1209=[5.9,39.8,74.7,98.6,227.6];
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){return p[0].axisValue+'<br>'+p.map(function(s){return s.marker+s.seriesName+': '+s.value+'万'}).join('<br>')}},
-    legend:{data:['0317 Condor','0210 Teth(春节)','0115 Pathfinder','1209 Rex+Mauler'],bottom:0,textStyle:{fontSize:10}},
+    legend:{data:['0317 兀鹫','0210 泰特（春节）','0115 探路者','1209 雷克斯+拳击手'],bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:55,left:75,right:15},
     xAxis:{type:'value',name:'万元',nameTextStyle:{fontSize:9},axisLabel:{fontSize:9}},
     yAxis:{type:'category',data:tiers,axisLabel:{fontSize:10}},
     series:[
-      {name:'0317 Condor',type:'bar',data:r0317,barMaxWidth:14,itemStyle:{color:'#e53935'},
+      {name:'0317 兀鹫',type:'bar',data:r0317,barMaxWidth:14,itemStyle:{color:'#e53935'},
         label:{show:true,position:'right',fontSize:9,formatter:'{c}万'}},
-      {name:'0210 Teth(春节)',type:'bar',data:r0210,barMaxWidth:14,itemStyle:{color:'#90caf9'}},
-      {name:'0115 Pathfinder',type:'bar',data:r0115,barMaxWidth:14,itemStyle:{color:'#a5d6a7'}},
-      {name:'1209 Rex+Mauler',type:'bar',data:r1209,barMaxWidth:14,itemStyle:{color:'#bdbdbd'}}
+      {name:'0210 泰特（春节）',type:'bar',data:r0210,barMaxWidth:14,itemStyle:{color:'#90caf9'}},
+      {name:'0115 探路者',type:'bar',data:r0115,barMaxWidth:14,itemStyle:{color:'#a5d6a7'}},
+      {name:'1209 雷克斯+拳击手',type:'bar',data:r1209,barMaxWidth:14,itemStyle:{color:'#bdbdbd'}}
     ]
   });
 })();
@@ -476,16 +571,16 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   var d1209=[17.2,14.6,15.0,4.7,9.0,19.1,93.7,44.9];
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){return p[0].axisValue+'<br>'+p.map(function(s){return s.marker+s.seriesName+': '+s.value+'万'}).join('<br>')}},
-    legend:{data:['0317 Condor','0210 Teth(春节)','0115 Pathfinder','1209 Rex+Mauler'],bottom:0,textStyle:{fontSize:10}},
+    legend:{data:['0317 兀鹫','0210 泰特（春节）','0115 探路者','1209 雷克斯+拳击手'],bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:55,left:36,right:15},
     xAxis:{type:'category',data:dps,axisLabel:{fontSize:10}},
     yAxis:{type:'value',name:'万元',nameTextStyle:{fontSize:9},axisLabel:{fontSize:9}},
     series:[
-      {name:'0317 Condor',type:'bar',data:d0317,barMaxWidth:14,itemStyle:{color:'#e53935'},
+      {name:'0317 兀鹫',type:'bar',data:d0317,barMaxWidth:14,itemStyle:{color:'#e53935'},
         label:{show:true,position:'top',fontSize:8,formatter:'{c}'}},
-      {name:'0210 Teth(春节)',type:'bar',data:d0210,barMaxWidth:14,itemStyle:{color:'#90caf9'}},
-      {name:'0115 Pathfinder',type:'bar',data:d0115,barMaxWidth:14,itemStyle:{color:'#a5d6a7'}},
-      {name:'1209 Rex+Mauler',type:'bar',data:d1209,barMaxWidth:14,itemStyle:{color:'#bdbdbd'}}
+      {name:'0210 泰特（春节）',type:'bar',data:d0210,barMaxWidth:14,itemStyle:{color:'#90caf9'}},
+      {name:'0115 探路者',type:'bar',data:d0115,barMaxWidth:14,itemStyle:{color:'#a5d6a7'}},
+      {name:'1209 雷克斯+拳击手',type:'bar',data:d1209,barMaxWidth:14,itemStyle:{color:'#bdbdbd'}}
     ]
   });
 })();
@@ -500,44 +595,49 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   var a1209=[815,453,1128,1686];
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){return p[0].axisValue+'<br>'+p.map(function(s){return s.marker+s.seriesName+': '+s.value+'元'}).join('<br>')}},
-    legend:{data:['0317 Condor','0210 Teth(春节)','0115 Pathfinder','1209 Rex+Mauler'],bottom:0,textStyle:{fontSize:10}},
+    legend:{data:['0317 兀鹫','0210 泰特（春节）','0115 探路者','1209 雷克斯+拳击手'],bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:55,left:50,right:15},
     xAxis:{type:'category',data:dps,axisLabel:{fontSize:11}},
     yAxis:{type:'value',name:'元/付费人',nameTextStyle:{fontSize:9},axisLabel:{fontSize:9}},
     series:[
-      {name:'0317 Condor',type:'bar',data:a0317,barMaxWidth:18,itemStyle:{color:'#e53935'},
+      {name:'0317 兀鹫',type:'bar',data:a0317,barMaxWidth:18,itemStyle:{color:'#e53935'},
         label:{show:true,position:'top',fontSize:9,formatter:'{c}'}},
-      {name:'0210 Teth(春节)',type:'bar',data:a0210,barMaxWidth:18,itemStyle:{color:'#90caf9'}},
-      {name:'0115 Pathfinder',type:'bar',data:a0115,barMaxWidth:18,itemStyle:{color:'#a5d6a7'}},
-      {name:'1209 Rex+Mauler',type:'bar',data:a1209,barMaxWidth:18,itemStyle:{color:'#bdbdbd'}}
+      {name:'0210 泰特（春节）',type:'bar',data:a0210,barMaxWidth:18,itemStyle:{color:'#90caf9'}},
+      {name:'0115 探路者',type:'bar',data:a0115,barMaxWidth:18,itemStyle:{color:'#a5d6a7'}},
+      {name:'1209 雷克斯+拳击手',type:'bar',data:a1209,barMaxWidth:18,itemStyle:{color:'#bdbdbd'}}
     ]
   });
 })();
 
-// 平衡性出战率+均伤双轴
+// 平衡性出战率+均伤双轴（4个机甲，版更首周快照）
 (function(){
   var c = echarts.init(document.getElementById('chart-balance'));
-  var mechs=['Rex\n1209发布周','Teth\n0210发布周','Condor\n0317发布前'];
-  var usage=[13.1,17.4,22.4];
-  var dmg=[1127250,1721980,2971127];
+  // 1209首周: 2025-12-15  0115首周: 2026-01-19  0210首周: 2026-02-09  0317首周: 2026-03-16（最近可用）
+  var mechs=['雷克斯\n1209首周\n2025-12-15','探路者\n0115首周\n2026-01-19','泰特\n0210首周\n2026-02-09','兀鹫\n0317首周\n2026-03-16'];
+  var usage=[13.1,7.5,17.4,22.4];
+  var dmg=[1127250,518703,1721980,2971127];
+  var maxDmg=3500000;
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){
       return p[0].axisValue.replace(/\n/g,' ')+'<br>出战率: '+p[0].value+'%<br>均伤: '+p[1].value.toLocaleString();
     }},
     legend:{data:['出战率(%)','均伤/场'],bottom:0,textStyle:{fontSize:10}},
-    grid:{top:10,bottom:50,left:50,right:70},
-    xAxis:{type:'category',data:mechs,axisLabel:{fontSize:10,interval:0}},
+    grid:{top:40,bottom:90,left:60,right:100},
+    xAxis:{type:'category',data:mechs,axisLabel:{fontSize:10,interval:0,lineHeight:16}},
     yAxis:[
-      {type:'value',name:'出战率%',nameTextStyle:{fontSize:9},axisLabel:{fontSize:9},max:30},
-      {type:'value',name:'均伤',nameTextStyle:{fontSize:9},axisLabel:{fontSize:9,formatter:function(v){return (v/10000).toFixed(0)+'万'}},splitLine:{show:false}}
+      {type:'value',name:'出战率%',nameTextStyle:{fontSize:9},axisLabel:{fontSize:9},min:0,max:28,
+        splitLine:{lineStyle:{type:'dashed'}}},
+      {type:'value',name:'均伤（万）',nameTextStyle:{fontSize:9},min:0,max:maxDmg,
+        axisLabel:{fontSize:9,formatter:function(v){return (v/10000).toFixed(0)+'万'}},splitLine:{show:false}}
     ],
     series:[
-      {name:'出战率(%)',type:'bar',data:usage,barMaxWidth:40,yAxisIndex:0,
-        itemStyle:{color:function(p){return p.dataIndex===2?'#e53935':'#90caf9'}},
-        label:{show:true,position:'top',fontSize:10,formatter:'{c}%'}},
-      {name:'均伤/场',type:'line',data:dmg,yAxisIndex:1,smooth:true,
-        lineStyle:{color:'#ff9800',width:2},itemStyle:{color:'#ff9800'},symbol:'circle',symbolSize:6,
-        label:{show:true,position:'top',fontSize:9,color:'#e65100',formatter:function(p){return (p.value/10000).toFixed(0)+'万'}}}
+      {name:'出战率(%)',type:'bar',data:usage,barMaxWidth:50,yAxisIndex:0,
+        itemStyle:{color:function(p){return ['#bdbdbd','#a5d6a7','#90caf9','#e53935'][p.dataIndex]}},
+        label:{show:true,position:'top',fontSize:11,formatter:'{c}%'}},
+      {name:'均伤/场',type:'line',data:dmg,yAxisIndex:1,smooth:false,
+        lineStyle:{color:'#ff9800',width:2},itemStyle:{color:'#ff9800'},symbol:'circle',symbolSize:8,
+        label:{show:true,position:'top',fontSize:10,color:'#bf360c',
+          formatter:function(p){return (p.value/10000).toFixed(0)+'万'}}}
     ]
   });
 })();
