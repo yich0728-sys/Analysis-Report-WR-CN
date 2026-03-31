@@ -343,7 +343,34 @@ tr:hover td{background:#eef2ff}
     </tbody>
   </table>
 
-  <div class="card-sub" style="margin-top:12px">3.3 资源类收入（养成驱动分析）</div>
+  <div class="card-sub" style="margin-top:12px">3.3 分玩家类型收入（新增 / 回流 / 存量）</div>
+  <div style="font-size:11px;color:#888;margin-bottom:6px">数据源：彩虹SDK（与APPMETR口径略有差异，首周收入偏高约1-3%）。新增=版本内新注册；回流=版本前注册且流失30天以上；存量=其余活跃玩家。</div>
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2">版本</th>
+        <th class="tc" colspan="4">收入（元）</th>
+        <th class="tc" colspan="3">去重活跃（WAU人次）</th>
+        <th class="tc" colspan="3">人均ARPU（元）</th>
+      </tr>
+      <tr>
+        <th class="tr">首周总收入</th><th class="tr">新增收入</th><th class="tr">回流收入</th><th class="tr">存量收入</th>
+        <th class="tr">新增活跃</th><th class="tr">回流活跃</th><th class="tr">存量活跃</th>
+        <th class="tr">新增ARPU</th><th class="tr">回流ARPU</th><th class="tr">存量ARPU</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1209 雷克斯+拳击手</td><td class="tr">446.5万</td><td class="tr">4.2万</td><td class="tr">6.5万</td><td class="tr up-t bold">435.8万</td><td class="tr">37,728</td><td class="tr">26,136</td><td class="tr dn-t bold">385,064</td><td class="tr">¥1.11</td><td class="tr up-t bold">¥2.50</td><td class="tr up-t bold">¥11.32</td></tr>
+      <tr><td>0115 探路者</td><td class="tr dn-t bold">337.1万</td><td class="tr dn-t bold">2.3万</td><td class="tr">5.7万</td><td class="tr dn-t bold">329.1万</td><td class="tr">37,361</td><td class="tr">28,773</td><td class="tr">470,248</td><td class="tr dn-t bold">¥0.62</td><td class="tr">¥1.98</td><td class="tr dn-t bold">¥7.00</td></tr>
+      <tr><td>0210 泰特（春节）</td><td class="tr up-t bold">530.7万</td><td class="tr up-t bold">4.4万</td><td class="tr up-t bold">7.1万</td><td class="tr">519.2万</td><td class="tr up-t bold">58,726</td><td class="tr up-t bold">43,340</td><td class="tr up-t bold">588,059</td><td class="tr">¥0.74</td><td class="tr">¥1.64</td><td class="tr">¥8.83</td></tr>
+      <tr style="background:#fff5f5"><td><strong>0317 兀鹰</strong></td><td class="tr bold">431.9万</td><td class="tr">5.0万</td><td class="tr dn-t bold">4.6万</td><td class="tr">422.3万</td><td class="tr">38,224</td><td class="tr dn-t bold">22,466</td><td class="tr">539,242</td><td class="tr up-t bold">¥1.32</td><td class="tr">¥2.04</td><td class="tr">¥7.83</td></tr>
+    </tbody>
+  </table>
+  <div class="ins g">✅ <strong>新增ARPU 1.32元为四版本最高</strong>，兀鹰强度吸引力对新注册玩家的首周付费转化效果最佳，优于双内容版1209（1.11元）和春节版0210（0.74元）。</div>
+  <div class="ins y">⚠️ <strong>回流ARPU 2.04元及回流收入4.6万均为四版本最低</strong>：回流玩家人数（22,466人）已是最低，单人付费也偏弱，两者叠加导致回流贡献几乎可忽略。回流召回效果差是本期收入的主要短板。</div>
+  <div class="ins y">⚠️ <strong>存量ARPU 7.83元低于1209（11.32元）和0210（8.83元）</strong>：存量玩家是收入大头（97.8%），其ARPU下滑直接拉低总收入。对比同为单件机甲的0115（存量ARPU 7.00元），兀鹰高出11.9%，但对照强力机甲预期仍偏低——根源依然是无新泰坦、大R养成消耗出口不足，存量大R每人花得更少。</div>
+
+  <div class="card-sub" style="margin-top:12px">3.4 资源类收入（养成驱动分析）</div>
   <table>
     <thead><tr><th>品类</th><th class="tr">0317首周</th><th class="tr">0210首周</th><th class="tr">0115首周</th><th class="tr">vs 0210</th><th class="tr">vs 0115</th></tr></thead>
     <tbody>
@@ -356,7 +383,7 @@ tr:hover td{background:#eef2ff}
   </table>
   <div class="ins y">⚠️ <strong>银币+5.4%</strong>：resource_daily显示银币消耗TOP1-2为泰特（270,881M）和雷克斯（269,220M），而非兀鹰——说明本期新增用户和老玩家在快速养成0210/1209版本的新机甲，兀鹰本身还不是消耗主力，预计第2-3周银币消耗会随兀鹰玩家升级而攀升。<br>⚠️ <strong>铂金-41%</strong>：0317无新泰坦DP，消耗TOP为拳击手/毁灭者（1209旧泰坦），与0210有神枪手新泰坦相比需求自然回落；vs 0115（同无新泰坦）+82%，说明兀鹰带动了泰坦补强需求。<br>⚠️ <strong>模组连续两版本持平~9.1万</strong>，需求趋于饱和，建议评估新模组类型投放。</div>
 
-  <div class="card-sub" style="margin-top:12px">3.4 数据板（DP）各档位收入详析</div>
+  <div class="card-sub" style="margin-top:12px">3.5 数据板（DP）各档位收入详析</div>
   <div id="chart-dp" style="width:100%;height:260px"></div>
   <table style="margin-top:8px;font-size:11px">
     <thead><tr><th>DP</th><th>内容描述</th><th class="tr">0317</th><th class="tr">0210</th><th class="tr">0115</th><th class="tr">1209</th><th class="tr">vs 0210</th><th class="tr">归因</th></tr></thead>
