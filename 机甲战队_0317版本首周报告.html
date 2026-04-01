@@ -182,20 +182,20 @@ tr:hover td{background:#eef2ff}
       <div style="font-size:10px;color:#999">辅助型机甲 · 无新泰坦</div>
     </div>
     <div class="ver-box">
-      <div class="ver-box-lbl" style="color:#555">1030 杜克斯</div>
-      <div class="ver-content">
-        <span class="vc mech">杜克斯</span>
-        <span class="vc weapon">戒律</span><span class="vc weapon">重击</span>
-      </div>
-      <div style="font-size:10px;color:#999">输出型机甲 · 无新泰坦</div>
-    </div>
-    <div class="ver-box">
       <div class="ver-box-lbl" style="color:#555">1209 雷克斯+拳击手</div>
       <div class="ver-content">
         <span class="vc mech">雷克斯</span><span class="vc sp">烈焰雷克斯 ★限量</span>
         <span class="vc weapon">埃洛克斯</span><span class="vc weapon">穆瑞克斯</span>
         <span class="vc titan">拳击手</span><span class="vc weapon">悲恸者</span><span class="vc weapon">毁灭者</span>
       </div>
+    </div>
+    <div class="ver-box">
+      <div class="ver-box-lbl" style="color:#555">1030 杜克斯</div>
+      <div class="ver-content">
+        <span class="vc mech">杜克斯</span>
+        <span class="vc weapon">戒律</span><span class="vc weapon">重击</span>
+      </div>
+      <div style="font-size:10px;color:#999">输出型机甲 · 无新泰坦</div>
     </div>
   </div>
 </div>
@@ -272,8 +272,8 @@ tr:hover td{background:#eef2ff}
     <div class="vcc cur"><div class="vcc-ver">0317 兀鹰（本期）</div><div class="vcc-amt">431.9万</div><div class="vcc-sub">WAU 18.5万 · DAU 8.6万</div></div>
     <div class="vcc"><div class="vcc-ver">0210 泰特+神枪手（春节）</div><div class="vcc-amt">530.7万</div><div class="vcc-sub">WAU 23.0万 · DAU 9.9万</div></div>
     <div class="vcc"><div class="vcc-ver">0115 探路者</div><div class="vcc-amt">337.1万</div><div class="vcc-sub">WAU 17.7万 · DAU 7.7万</div></div>
-    <div class="vcc"><div class="vcc-ver">1030 杜克斯</div><div class="vcc-amt">406.1万</div><div class="vcc-sub">WAU 16.2万 · DAU 6.2万</div></div>
     <div class="vcc"><div class="vcc-ver">1209 雷克斯+拳击手</div><div class="vcc-amt">446.5万</div><div class="vcc-sub">WAU 16.4万 · DAU 6.4万</div></div>
+    <div class="vcc"><div class="vcc-ver">1030 杜克斯</div><div class="vcc-amt">406.1万</div><div class="vcc-sub">WAU 16.2万 · DAU 6.2万</div></div>
   </div>
   <div class="ins b">💡 剔除春节假期（0210 DAU高出约14%），0317收入表现与0210基本相当；较0115辅助机甲版本收入+28%，较1209（机甲+泰坦）低3%，强力输出机甲商业表现稳居中高档。</div>
 
@@ -473,7 +473,7 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   var r1209=[99.2,59.3,47.7,59.2,90.2,51.0,39.9];
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){return '第'+p[0].dataIndex+'天<br>'+p.map(function(s){return s.marker+s.seriesName+': '+s.value+'万'}).join('<br>')}},
-    legend:{data:['1030 杜克斯','1209 雷克斯+拳击手','0115 探路者','0210 泰特（春节）','0317 兀鹰'],bottom:0,textStyle:{fontSize:10}},
+    legend:{data:['0317 兀鹰','0210 泰特（春节）','0115 探路者','1209 雷克斯+拳击手','1030 杜克斯'],bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:55,left:44,right:15},
     xAxis:{type:'category',data:['D1(版更首日)','D2','D3','D4','D5','D6','D7'],axisLabel:{fontSize:9,interval:0,rotate:15}},
     yAxis:{type:'value',name:'万元',nameTextStyle:{fontSize:9},axisLabel:{fontSize:9},splitLine:{lineStyle:{type:'dashed'}}},
@@ -498,7 +498,7 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   var d1209=[52592,52886,53049,66630,89254,83186,51331];
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){return '第'+p[0].dataIndex+'天<br>'+p.map(function(s){return s.marker+s.seriesName+': '+s.value.toLocaleString()+'人'}).join('<br>')}},
-    legend:{data:['1030 杜克斯','1209 雷克斯+拳击手','0115 探路者','0210 泰特（春节）','0317 兀鹰'],bottom:0,textStyle:{fontSize:10}},
+    legend:{data:['0317 兀鹰','0210 泰特（春节）','0115 探路者','1209 雷克斯+拳击手','1030 杜克斯'],bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:50,left:60,right:15},
     xAxis:{type:'category',data:['D1','D2','D3','D4','D5','D6','D7'],axisLabel:{fontSize:10}},
     yAxis:{type:'value',name:'人',nameTextStyle:{fontSize:9},axisLabel:{fontSize:9,formatter:function(v){return (v/10000).toFixed(0)+'万'}}},
@@ -523,7 +523,7 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   var w0317=[143652,19602,13704,5997,2136];
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){return p[0].axisValue+'<br>'+p.map(function(s){return s.marker+s.seriesName+': '+s.value.toLocaleString()+'人'}).join('<br>')}},
-    legend:{data:['1030 杜克斯','1209 雷克斯+拳击手','0115 探路者','0210 泰特（春节）','0317 兀鹰'],bottom:0,textStyle:{fontSize:10}},
+    legend:{data:['0317 兀鹰','0210 泰特（春节）','0115 探路者','1209 雷克斯+拳击手','1030 杜克斯'],bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:55,left:75,right:10},
     xAxis:{type:'value',axisLabel:{fontSize:9}},
     yAxis:{type:'category',data:tiers,axisLabel:{fontSize:10}},
@@ -578,7 +578,7 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   var a1209=[37564,10090,8261,3795,1461];
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){return p[0].axisValue+'<br>'+p.map(function(s){return s.marker+s.seriesName+': '+s.value.toLocaleString()+'人'}).join('<br>')}},
-    legend:{data:['1030 杜克斯','1209 雷克斯+拳击手','0115 探路者','0210 泰特（春节）','0317 兀鹰'],bottom:0,textStyle:{fontSize:10}},
+    legend:{data:['0317 兀鹰','0210 泰特（春节）','0115 探路者','1209 雷克斯+拳击手','1030 杜克斯'],bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:55,left:75,right:20},
     xAxis:{type:'value',axisLabel:{fontSize:9}},
     yAxis:{type:'category',data:tiers,axisLabel:{fontSize:10}},
@@ -604,7 +604,7 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   var r1209=[5.9,39.8,74.7,98.6,227.6];
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){return p[0].axisValue+'<br>'+p.map(function(s){return s.marker+s.seriesName+': '+s.value+'万'}).join('<br>')}},
-    legend:{data:['1030 杜克斯','1209 雷克斯+拳击手','0115 探路者','0210 泰特（春节）','0317 兀鹰'],bottom:0,textStyle:{fontSize:10}},
+    legend:{data:['0317 兀鹰','0210 泰特（春节）','0115 探路者','1209 雷克斯+拳击手','1030 杜克斯'],bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:55,left:75,right:15},
     xAxis:{type:'value',name:'万元',nameTextStyle:{fontSize:9},axisLabel:{fontSize:9}},
     yAxis:{type:'category',data:tiers,axisLabel:{fontSize:10}},
@@ -630,7 +630,7 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   var d1209=[17.2,14.6,15.0,4.7,9.0,19.1,93.7,44.9];
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){return p[0].axisValue+'<br>'+p.map(function(s){return s.marker+s.seriesName+': '+s.value+'万'}).join('<br>')}},
-    legend:{data:['1030 杜克斯','1209 雷克斯+拳击手','0115 探路者','0210 泰特（春节）','0317 兀鹰'],bottom:0,textStyle:{fontSize:10}},
+    legend:{data:['0317 兀鹰','0210 泰特（春节）','0115 探路者','1209 雷克斯+拳击手','1030 杜克斯'],bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:55,left:36,right:15},
     xAxis:{type:'category',data:dps,axisLabel:{fontSize:10}},
     yAxis:{type:'value',name:'万元',nameTextStyle:{fontSize:9},axisLabel:{fontSize:9}},
@@ -656,7 +656,7 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   var a1209=[815,453,1128,1686];
   c.setOption({
     tooltip:{trigger:'axis',formatter:function(p){return p[0].axisValue+'<br>'+p.map(function(s){return s.marker+s.seriesName+': '+s.value+'元'}).join('<br>')}},
-    legend:{data:['1030 杜克斯','1209 雷克斯+拳击手','0115 探路者','0210 泰特（春节）','0317 兀鹰'],bottom:0,textStyle:{fontSize:10}},
+    legend:{data:['0317 兀鹰','0210 泰特（春节）','0115 探路者','1209 雷克斯+拳击手','1030 杜克斯'],bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:55,left:50,right:15},
     xAxis:{type:'category',data:dps,axisLabel:{fontSize:11}},
     yAxis:{type:'value',name:'元/付费人',nameTextStyle:{fontSize:9},axisLabel:{fontSize:9}},
