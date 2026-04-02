@@ -556,7 +556,75 @@ tr:hover td{background:#eef2ff}
   <div class="ins b">📌 <strong>铂金19.2万（无新泰坦基准线）</strong>：同为无新泰坦的0115（11.6万）和1030（12.7万）铂金均偏低；0317高出约50%，原因是兀鹰强力机甲带动玩家加速补强泰坦来匹配战力，旧泰坦养成需求被拉动。0210有新泰坦，铂金33.9万为峰值，新泰坦DP11是铂金消耗第一驱动力。</div>
   <div class="ins y">⚠️ <strong>金三角12.2万，低于0115（17.5万）和1030（19.3万）</strong>：金三角绑定母舰抽取，0115探路者为辅助机甲带动母舰配件需求，1030为纯新机甲版本初期母舰扩张需求较旺；0317期玩家重心在兀鹰机甲本身养成（银币/金币强），金三角投入相对收敛。模组10.3万位居中游，深度养成需求尚存但增长放缓，建议跟踪后续版本模组消耗走势。</div>
 
-  <div class="card-sub" style="margin-top:12px">3.5 数据板（DP）各档位收入详析</div>
+    <div class="card-sub" style="margin-top:16px">3.5b 金/银/铂金 产出消耗分析（养成内容归因）</div>
+  <div style="font-size:11px;color:#888;margin-bottom:6px">数据源：resource_daily.json（游戏内资源产出/消耗行为日志）。以下分析用于判断资源收入变化是"玩家实际养成需求增加"还是"购买力驱动"所致。</div>
+
+  <table style="font-size:11px">
+    <thead>
+      <tr>
+        <th rowspan="2">版本</th>
+        <th class="tc" colspan="2" style="background:#e8f5e9">银币（B）</th>
+        <th class="tc" colspan="2" style="background:#fff9c4">金币（M）</th>
+        <th class="tc" colspan="2" style="background:#ede7f6">铂金（M）</th>
+      </tr>
+      <tr>
+        <th class="tr" style="background:#e8f5e9">产出</th>
+        <th class="tr" style="background:#e8f5e9">消耗</th>
+        <th class="tr" style="background:#fff9c4">产出</th>
+        <th class="tr" style="background:#fff9c4">消耗</th>
+        <th class="tr" style="background:#ede7f6">产出</th>
+        <th class="tr" style="background:#ede7f6">消耗</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#fff5f5">
+        <td><strong>0317 兀鹰</strong></td>
+        <td class="tr" style="color:#c62828;font-weight:600">4,595.8B</td>
+        <td class="tr">4,403.9B</td>
+        <td class="tr" style="color:#c62828;font-weight:600">256M</td>
+        <td class="tr" style="color:#c62828;font-weight:600">288M</td>
+        <td class="tr">23.3M</td>
+        <td class="tr">23.7M</td>
+      </tr>
+      <tr>
+        <td>0210 泰特（春节）</td>
+        <td class="tr">4,495.8B</td>
+        <td class="tr" style="color:#c62828;font-weight:600">4,604.2B</td>
+        <td class="tr" style="color:#1565c0;font-weight:600">340M</td>
+        <td class="tr">320M</td>
+        <td class="tr" style="color:#c62828;font-weight:600">31.1M</td>
+        <td class="tr" style="color:#c62828;font-weight:600">34.8M</td>
+      </tr>
+      <tr>
+        <td>0115 探路者</td>
+        <td class="tr" style="color:#1565c0;font-weight:600">3,604.5B</td>
+        <td class="tr" style="color:#1565c0;font-weight:600">3,694.8B</td>
+        <td class="tr">231M</td>
+        <td class="tr" style="color:#1565c0;font-weight:600">225M</td>
+        <td class="tr" style="color:#1565c0;font-weight:600">12.9M</td>
+        <td class="tr" style="color:#1565c0;font-weight:600">17.7M</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:10px;font-size:11px">
+    <strong>银币消耗归因（0317 vs 0210 vs 0115）：</strong>
+    <table style="margin-top:4px;font-size:11px">
+      <thead><tr><th>消耗分类</th><th class="tr">0317首周</th><th class="tr">0210首周</th><th class="tr">0115首周</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>总消耗</td><td class="tr">4,403.9B</td><td class="tr">4,604.2B</td><td class="tr">3,694.8B</td><td>单位：十亿银币</td></tr>
+        <tr><td>换算消耗（conversion）</td><td class="tr">151.2B（3.4%）</td><td class="tr">220.3B（4.8%）</td><td class="tr">170.7B（4.6%）</td><td>银→金换算，0317占比下降说明玩家更专注银币直接养成</td></tr>
+        <tr><td>Sport_/SE_ 限定版</td><td class="tr">224.2B（5.1%）</td><td class="tr">174.6B（3.8%）</td><td class="tr">20.6B（0.6%）</td><td>0317有竞速兀鹰等多个限定机甲，限定版养成需求明显拉升</td></tr>
+        <tr><td>泰特＋雷克斯（旧热门）</td><td class="tr" style="color:#c62828;font-weight:600">540.1B（12.3%）</td><td class="tr">317.2B（6.9%）</td><td class="tr">128.9B（3.5%）</td><td>0317期老玩家继续补强旧版本强力机甲，泰特/雷克斯是银币最大消耗来源</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ins g" style="margin-top:8px">✅ <strong>银币：0317产出（4,595.8B）&gt;消耗（4,403.9B），库存净增</strong>，0210与0115消耗略超产出（净消耗），说明0317期玩家银币供给充裕，养成压力小；收入偏低不是因为银币耗尽、玩家无力购买，而是自然养成循环尚未触及库存下限。泰特（270.9B）+雷克斯（269.2B）是0317首周银币消耗TOP2，超过任何兀鹰本体消耗——<strong>新版本发布后老机甲补强是银币消耗主力，兀鹰养成会在第2-3周随玩家获得更多数量后才成为主流消耗</strong>。</div>
+  <div class="ins b">📌 <strong>金币：机师养成（legendaryPilot）占消耗29%为第一大项</strong>，0317为288M vs 0210的320M（-10%），与金币收入下降趋势一致。"null"类（疑为特殊升级/进阶消耗）0317为36.6M（12.7%），低于0210的48.0M（15.0%），说明0317期特殊进阶行为偏少，可能与无新泰坦导致玩家进阶动力不足有关。金币消耗与收入基本对应，<strong>金币收入上升（+12% vs 0115）确实来自真实养成需求增加</strong>，而非库存透支。</div>
+  <div class="ins y">⚠️ <strong>铂金：0317消耗23.7M，其中泰坦武器占51.9%（12.3M）高于0210的38.1%，泰坦本体43.4%低于0210的58.2%</strong>——0317无新泰坦本体可养，玩家转而加强旧泰坦武器，铂金消耗结构从"买新泰坦"转向"武装旧泰坦"。铂金收入19.2万已高于同类无新泰坦版本（0115: 11.6万，1030: 12.7万），说明兀鹰强度确实刺激了玩家对泰坦配套的补强消费，<strong>这是养成需求真实增加驱动的收入上升，而非偶发</strong>。</div>
+
+<div class="card-sub" style="margin-top:12px">3.5 数据板（DP）各档位收入详析</div>
   <div id="chart-dp" style="width:100%;height:260px"></div>
   <table style="margin-top:8px;font-size:11px">
     <thead><tr><th>DP</th><th>内容描述</th><th class="tr">0317</th><th class="tr">0210</th><th class="tr">0115</th><th class="tr">1209</th><th class="tr">vs 0210</th><th class="tr">归因</th></tr></thead>
