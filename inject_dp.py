@@ -34,9 +34,9 @@ for v, vn, vc in ver_info:
 parts.append('    <span style="font-size:10px;color:#aaa;margin-left:2px">单击切换 · 双击仅选该版本</span>\n')
 parts.append('  </div>\n')
 
-parts.append('  <div id="chart-dp-r" style="width:100%;height:300px"></div>\n')
-parts.append('  <table id="dp-tbl" style="margin-top:8px;font-size:11px">\n')
-parts.append('    <thead><tr><th>DP</th><th>类型</th><th>0317投放内容</th>')
+parts.append('  <div style="font-size:10px;color:#e53935;margin-top:4px;margin-bottom:4px">⚠️ 注：100-1000元档位数据仅0317版本完整，其他版本未单独采集该档位，全部归入0-100元段，请谨慎对比该档位。</div>\n')
+parts.append('  <table id="dp-tbl" style="margin-top:4px;font-size:12px">\n')
+parts.append('    <thead><tr><th>DP</th><th>池类型</th><th>投放内容（以0317为例）</th>')
 for v, vn, vc in ver_info:
     parts.append(f'<th class="tr" id="dth-{v}" style="color:{vc}">{v}</th>')
 parts.append('<th class="tr">vs 0210</th></tr></thead>\n')
@@ -144,7 +144,7 @@ function upTable(){
     var pct=v1>0?((v0-v1)/v1*100):0;
     var ps=v1>0?(pct>=0?"+":"")+pct.toFixed(1)+"%":"-";
     var pc=pct>=0?"#2e7d32":"#c62828";
-    var ct=D.dpContent[dp]["0317"]||"-";
+    var ct=DTYPE[dp]||"-";
     html+="<tr><td><strong>"+dp+"</strong></td><td style='color:#555'>"+DTYPE[dp]+"</td><td style='color:#666;font-size:10px'>"+ct+"</td>";
     ["0317","0210","0115","1209","1030"].forEach(function(v){
       var b=v==="0317"?"font-weight:600;":"";
