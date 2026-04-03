@@ -14,6 +14,16 @@ parts = []
 parts.append('<div class="card-sub" style="margin-top:12px">3.5 数据板（DP）各档位收入详析 · 分R交互看板</div>\n')
 parts.append('  <div style="font-size:11px;color:#888;margin-bottom:6px">点击版本标签切换选中/取消；<strong>双击</strong>只保留该版本。按分R筛选后图表与表格实时联动。</div>\n')
 
+# Metric toggle buttons
+parts.append('  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;align-items:center">\n')
+parts.append('    <span style="font-size:11px;color:#555">指标：</span>\n')
+for m_val, m_lbl, m_active in [("rev","收入",True),("pu","付费人数",False),("arppu","ARPPU",False)]:
+    if m_active:
+        parts.append(f'    <button class="dp-mbtn" data-m="{m_val}" style="font-size:10px;padding:2px 10px;border:1px solid #37474f;border-radius:3px;background:#37474f;color:#fff;cursor:pointer">{m_lbl}</button>\n')
+    else:
+        parts.append(f'    <button class="dp-mbtn" data-m="{m_val}" style="font-size:10px;padding:2px 10px;border:1px solid #bbb;border-radius:3px;background:#f5f5f5;cursor:pointer">{m_lbl}</button>\n')
+parts.append('  </div>\n')
+
 # R filter buttons
 parts.append('  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;align-items:center">\n')
 parts.append('    <span style="font-size:11px;color:#555">分R筛选：</span>\n')
@@ -36,10 +46,10 @@ parts.append('  </div>\n')
 
 parts.append('  <div id="chart-dp-r" style="width:100%;height:300px"></div>\n')
 parts.append('  <table id="dp-tbl" style="margin-top:8px;font-size:12px">\n')
-parts.append('    <thead><tr><th>DP</th><th>池类型</th><th>投放内容（以0317为例）</th>')
+parts.append('    <thead><tr><th>DP</th><th>池类型</th><th>投放内容</th>')
 for v, vn, vc in ver_info:
     parts.append(f'<th class="tr" id="dth-{v}" style="color:{vc}">{v}</th>')
-parts.append('<th class="tr">vs 0210</th></tr></thead>\n')
+parts.append('<th class="tr" id="dp-vs-hdr">vs 0210</th></tr></thead>\n')
 parts.append('    <tbody id="dp-tbody"></tbody>\n  </table>\n')
 parts.append('  <div id="dp-insight" class="ins b" style="margin-top:8px"></div>\n\n')
 
@@ -49,33 +59,79 @@ js = """<script>
 var D=__PAYLOAD__;
 var DORDER=["DP1","DP2","DP3","DP4","DP5","DP7","DP8","DP10","DP11","DP12","DPPass"];
 var DTYPE={DP1:"入门混池",DP2:"白银武器",DP3:"白银机甲",DPPass:"数据板通行证",DP4:"黄金武器",DP5:"黄金机甲",DP7:"老泰坦",DP8:"活动纯净",DP10:"本期机武",DP11:"新泰坦",DP12:"限量版"};
+var DDESC={DP1:"超过2个版本以上的老机甲",DP2:"近4个版本机甲武器含零件混池",DP3:"近4个版本机甲含零件混池",DP4:"近4个版本机甲武器混池",DP5:"近4个版本机甲混池",DP7:"近2期老泰坦混池",DP8:"当期机甲和机甲武器、无人机、机师纯净池",DP10:"当期机甲和机甲武器含零件纯净池",DP11:"近1期或当期新泰坦纯净池",DP12:"当期限量版纯净池",DPPass:"数据板通行证"};
 var RSEGS=["0-100","100-1000","1000-5000","5000-20000","20000+"];
 var aV={"0317":1,"0210":1,"0115":1,"1209":1,"1030":1};
-var aR="ALL";
+var aR={"0-100":1,"100-1000":1,"1000-5000":1,"5000-20000":1,"20000+":1};
+var aM="rev";
 var dpC=null;
 var dbt=null;
+var MINFO={
+  rev:{name:"收入",yName:"万元",vs:"vs 0210",fmt:function(v){return (v/10000).toFixed(1)+"万";},chart:function(v){return +(v/10000).toFixed(2);}},
+  pu:{name:"付费人数",yName:"人数",vs:"vs 0210",fmt:function(v){return Math.round(v)+"人";},chart:function(v){return Math.round(v);}},
+  arppu:{name:"ARPPU",yName:"元",vs:"vs 0210",fmt:function(v){return "¥"+Math.round(v);},chart:function(v){return Math.round(v);}}
+};
 
-function gV(ver,dp){
-  if(aR==="ALL")return RSEGS.reduce(function(s,r,i){return s+D.rev[ver][dp][i];},0);
-  var i=RSEGS.indexOf(aR);return i>=0?D.rev[ver][dp][i]:0;
+function isAllR(){
+  return RSEGS.every(function(r){return aR[r];});
 }
-function gP(ver,dp){
-  if(aR==="ALL")return RSEGS.reduce(function(s,r,i){return s+D.pu[ver][dp][i];},0);
-  var i=RSEGS.indexOf(aR);return i>=0?D.pu[ver][dp][i]:0;
+function getPickedR(){
+  return RSEGS.filter(function(r){return aR[r];});
 }
-function fw(v){return (v/10000).toFixed(1)+"万";}
-
-function rClick(b){
-  aR=b.dataset.r;
+function getRLabel(){
+  var picked=getPickedR();
+  if(picked.length===RSEGS.length)return "全部";
+  if(picked.length===0)return "未选择";
+  return picked.join(" + ")+"元";
+}
+function syncRBtns(){
   document.querySelectorAll(".dp-rbtn").forEach(function(x){
-    var on=x.dataset.r===aR;
+    var on=x.dataset.r==="ALL"?isAllR():!!aR[x.dataset.r];
     x.style.background=on?"#37474f":"#f5f5f5";
     x.style.color=on?"#fff":"#333";
     x.style.borderColor=on?"#37474f":"#bbb";
   });
+}
+function syncMBtns(){
+  document.querySelectorAll(".dp-mbtn").forEach(function(x){
+    var on=x.dataset.m===aM;
+    x.style.background=on?"#37474f":"#f5f5f5";
+    x.style.color=on?"#fff":"#333";
+    x.style.borderColor=on?"#37474f":"#bbb";
+  });
+  document.getElementById("dp-vs-hdr").textContent=MINFO[aM].vs;
+}
+function sumRev(ver,dp){
+  return getPickedR().reduce(function(s,r){var i=RSEGS.indexOf(r);return s+(i>=0?D.rev[ver][dp][i]:0);},0);
+}
+function sumPu(ver,dp){
+  return getPickedR().reduce(function(s,r){var i=RSEGS.indexOf(r);return s+(i>=0?D.pu[ver][dp][i]:0);},0);
+}
+function getVal(ver,dp){
+  if(aM==="rev")return sumRev(ver,dp);
+  if(aM==="pu")return sumPu(ver,dp);
+  var pu=sumPu(ver,dp),rev=sumRev(ver,dp);
+  return pu>0?rev/pu:0;
+}
+function fmtVal(v){return MINFO[aM].fmt(v);}
+function chartVal(v){return MINFO[aM].chart(v);}
+
+function rClick(b){
+  var r=b.dataset.r;
+  if(r==="ALL"){
+    RSEGS.forEach(function(x){aR[x]=1;});
+  }else{
+    aR[r]=aR[r]?0:1;
+    if(!RSEGS.some(function(x){return aR[x];}))aR[r]=1;
+  }
+  syncRBtns();
   upAll();
 }
-
+function mClick(b){
+  aM=b.dataset.m;
+  syncMBtns();
+  upAll();
+}
 function vClick(e,b){
   if(dbt)return;
   dbt=setTimeout(function(){
@@ -103,7 +159,7 @@ function upChart(){
   var series=vers.map(function(ver){
     return {name:D.verNames[ver],type:"bar",barMaxWidth:14,
       itemStyle:{color:D.verColors[ver]},
-      data:dps.map(function(dp){return +(gV(ver,dp)/10000).toFixed(2);}),
+      data:dps.map(function(dp){return chartVal(getVal(ver,dp));}),
       label:ver==="0317"?{show:true,position:"top",fontSize:9,
         formatter:function(p){return p.value>0?p.value+"":"";}
       }:{show:false}};
@@ -112,24 +168,23 @@ function upChart(){
     tooltip:{trigger:"axis",
       formatter:function(ps){
         var dp=dps[ps[0].dataIndex];
-        var rl=aR==="ALL"?"全部":aR+"元";
+        var rl=getRLabel();
         var s=ps[0].axisValue+"&nbsp;<span style='color:#888;font-size:10px'>"+DTYPE[dp]+"</span><br>";
-        s+="<span style='color:#aaa;font-size:9px'>分R："+rl+"</span><br>";
+        s+="<span style='color:#aaa;font-size:9px'>指标："+MINFO[aM].name+" | 分R："+rl+"</span><br>";
         ps.forEach(function(p){
           var v=D.vers.find(function(x){return D.verNames[x]===p.seriesName;});
-          var pu=gP(v,dp),ar=pu>0?Math.round(gV(v,dp)/pu):0;
-          s+=p.marker+p.seriesName+": "+p.value+"万";
-          if(pu>0)s+=" | "+pu+"人 | ARPPU ¥"+ar;
+          var rev=sumRev(v,dp),pu=sumPu(v,dp),ar=pu>0?Math.round(rev/pu):0;
+          s+=p.marker+p.seriesName+": "+fmtVal(getVal(v,dp));
+          s+=" | 收入 "+MINFO.rev.fmt(rev)+" | "+MINFO.pu.fmt(pu)+" | ARPPU ¥"+ar;
           s+="<br>";
         });
-        var it=D.dpContent[dp]["0317"];if(it)s+="<span style='color:#888;font-size:9px'>0317投放："+it+"</span>";
         return s;
       }
     },
     legend:{data:vers.map(function(v){return D.verNames[v];}),bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:50,left:36,right:10},
     xAxis:{type:"category",data:dps,axisLabel:{fontSize:10}},
-    yAxis:{type:"value",name:"万元",nameTextStyle:{fontSize:9},axisLabel:{fontSize:9},splitLine:{lineStyle:{type:"dashed"}}},
+    yAxis:{type:"value",name:MINFO[aM].yName,nameTextStyle:{fontSize:9},axisLabel:{fontSize:9},splitLine:{lineStyle:{type:"dashed"}}},
     series:series
   };
   if(!dpC)dpC=echarts.init(document.getElementById("chart-dp-r"));
@@ -140,16 +195,16 @@ function upTable(){
   var dps=DORDER.filter(function(d){return d!=="DP9";});
   var html="";
   dps.forEach(function(dp){
-    var v0=gV("0317",dp),v1=gV("0210",dp);
+    var v0=getVal("0317",dp),v1=getVal("0210",dp);
     var pct=v1>0?((v0-v1)/v1*100):0;
     var ps=v1>0?(pct>=0?"+":"")+pct.toFixed(1)+"%":"-";
     var pc=pct>=0?"#2e7d32":"#c62828";
-    var ct=DTYPE[dp]||"-";
+    var ct=DDESC[dp]||"-";
     html+="<tr><td><strong>"+dp+"</strong></td><td style='color:#555'>"+DTYPE[dp]+"</td><td style='color:#666;font-size:10px'>"+ct+"</td>";
     ["0317","0210","0115","1209","1030"].forEach(function(v){
       var b=v==="0317"?"font-weight:600;":"";
       var disp=aV[v]?"":"display:none;";
-      html+="<td class='tr' style='"+b+disp+"'>"+fw(gV(v,dp))+"</td>";
+      html+="<td class='tr' style='"+b+disp+"'>"+fmtVal(getVal(v,dp))+"</td>";
     });
     html+="<td class='tr' style='color:"+pc+"'>"+ps+"</td></tr>";
   });
@@ -166,19 +221,25 @@ var INS={
 };
 
 function upInsight(){
-  document.getElementById("dp-insight").innerHTML=INS[aR]||INS["ALL"];
-  document.getElementById("dp-r-lbl").textContent=aR==="ALL"?"":"↑ 当前："+aR+"元视角";
+  var key;
+  var picked=getPickedR();
+  if(picked.length===RSEGS.length||picked.length===0){key="ALL";}
+  else if(picked.length===1){key=picked[0];}
+  else{key="ALL";}
+  document.getElementById("dp-insight").innerHTML=INS[key]||INS["ALL"];
+  document.getElementById("dp-r-lbl").textContent=isAllR()?"":"↑ 当前："+getRLabel()+"视角";
 }
 
 function upAll(){upChart();upTable();upInsight();}
 
 document.querySelectorAll(".dp-rbtn").forEach(function(b){b.addEventListener("click",function(){rClick(b);});});
+document.querySelectorAll(".dp-mbtn").forEach(function(b){b.addEventListener("click",function(){mClick(b);});});
 document.querySelectorAll(".dp-vbtn").forEach(function(b){
   b.addEventListener("click",function(e){vClick(e,b);});
   b.addEventListener("dblclick",function(){vDbl(b);});
 });
 
-window.addEventListener("load",function(){upAll();});
+window.addEventListener("load",function(){syncRBtns();syncMBtns();upAll();});
 window.addEventListener("resize",function(){if(dpC)dpC.resize();});
 })();
 </script>
