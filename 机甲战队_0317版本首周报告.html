@@ -889,15 +889,14 @@ window.addEventListener("resize",function(){if(dpC)dpC.resize();});
 <!-- 平衡性 -->
 <div class="card">
   <div class="card-title">3.6 平衡性问题</div>
-  <div class="card-sub" style="margin-bottom:8px">机甲出战率 / 均伤对比（各版本首周快照：1209=12-15, 0115=01-19, 0210=02-09, 0317=03-16）</div>
-  <div id="chart-balance" style="width:100%;height:340px"></div>
+  <div class="card-sub" style="margin-bottom:8px">机甲出战率 / 均伤对比（版本首日所在自然周周一快照：1030=10-27, 1209=12-08, 0115=01-12, 0210=02-09, 0317=03-16）</div>
   <table style="margin-top:8px">
     <thead><tr><th>机甲</th><th class="tr">持有率</th><th class="tr">出战率</th><th class="tr">均伤/场</th><th class="tr">vs 泰特首周</th><th class="tr">vs 雷克斯首周</th></tr></thead>
     <tbody>
-      <tr style="background:#fff5f5"><td>兀鹰（0317首周）</td><td class="tr">0.7%</td><td class="tr" style="color:#c62828;font-weight:600">22.4%</td><td class="tr" style="color:#c62828;font-weight:600">2,971,127</td><td class="tr">出战+29% 均伤+72%</td><td class="tr">出战+71% 均伤+163%</td></tr>
-      <tr><td>泰特（0210首周）</td><td class="tr">0.8%</td><td class="tr">17.4%</td><td class="tr">1,721,980</td><td class="tr" style="color:#888">—</td><td class="tr">—</td></tr>
-      <tr><td>探路者（0115首周）</td><td class="tr">1.4%</td><td class="tr">7.5%</td><td class="tr">518,703</td><td class="tr">—</td><td class="tr">—</td></tr>
-      <tr><td>雷克斯（1209首周）</td><td class="tr">1.6%</td><td class="tr">13.1%</td><td class="tr">1,127,250</td><td class="tr">—</td><td class="tr" style="color:#888">—</td></tr>
+      <tr style="background:#fff5f5"><td>兀鹰（0317周一快照）</td><td class="tr">0.7%</td><td class="tr" style="color:#c62828;font-weight:600">22.4%</td><td class="tr" style="color:#c62828;font-weight:600">2,971,127</td><td class="tr">出战+29% 均伤+72%</td><td class="tr">出战+61% 均伤+101%</td></tr>
+      <tr><td>泰特（0210周一快照）</td><td class="tr">0.8%</td><td class="tr">17.4%</td><td class="tr">1,721,980</td><td class="tr" style="color:#888">—</td><td class="tr">出战+25% 均伤+17%</td></tr>
+      <tr><td>探路者（0115周一快照）</td><td class="tr">0.6%</td><td class="tr">6.9%</td><td class="tr">725,683</td><td class="tr">—</td><td class="tr">—</td></tr>
+      <tr><td>雷克斯（1209周一快照）</td><td class="tr">0.8%</td><td class="tr">13.9%</td><td class="tr">1,475,857</td><td class="tr">—</td><td class="tr" style="color:#888">—</td></tr>
     </tbody>
   </table>
 
@@ -919,7 +918,7 @@ window.addEventListener("resize",function(){if(dpC)dpC.resize();});
       </tr>
     </tbody>
   </table>
-  <div class="ins r">🔴 兀鹰(兀鹰)出战率+均伤均为近期新机甲最高，低持有率下极易形成"少数人碾压多数人"体验；建议在3/31前完成首次评估，必要时通过数值调整干预，防止免费玩家流失加速。</div>
+  <div class="ins r">🔴 兀鹰出战率22.4%+均伤297万均为近期新机甲最高（vs泰特：出战+29%均伤+72%；vs雷克斯：出战+61%均伤+101%），低持有率0.7%下极易形成"少数人碾压多数人"体验；建议在3/31前完成首次评估，必要时通过数值调整干预，防止免费玩家流失加速。</div>
 </div>
 
 <div class="footnote">
@@ -1138,41 +1137,10 @@ var days7 = ['D1','D2','D3','D4','D5','D6','D7'];
   });
 })();
 
-// 平衡性出战率+均伤双轴（4个机甲，版更首周快照）
-(function(){
-  var c = echarts.init(document.getElementById('chart-balance'));
-  // 1030首周: 2025-11-03  1209首周: 2025-12-15  0115首周: 2026-01-19  0210首周: 2026-02-09  0317首周: 2026-03-16
-  var mechs=['杜克斯\n1030首周\n2025-11-03','雷克斯\n1209首周\n2025-12-15','探路者\n0115首周\n2026-01-19','泰特\n0210首周\n2026-02-09','兀鹰\n0317首周\n2026-03-16'];
-  var usage=[19.0,13.1,7.5,17.4,22.4];
-  var dmg=[2071075,1127250,518703,1721980,2971127];
-  var maxDmg=3500000;
-  c.setOption({
-    tooltip:{trigger:'axis',formatter:function(p){
-      return p[0].axisValue.replace(/\n/g,' ')+'<br>出战率: '+p[0].value+'%<br>均伤: '+p[1].value.toLocaleString();
-    }},
-    legend:{data:['出战率(%)','均伤/场'],bottom:0,textStyle:{fontSize:10}},
-    grid:{top:40,bottom:90,left:60,right:100},
-    xAxis:{type:'category',data:mechs,axisLabel:{fontSize:10,interval:0,lineHeight:16}},
-    yAxis:[
-      {type:'value',name:'出战率%',nameTextStyle:{fontSize:9},axisLabel:{fontSize:9},min:0,max:28,
-        splitLine:{lineStyle:{type:'dashed'}}},
-      {type:'value',name:'均伤（万）',nameTextStyle:{fontSize:9},min:0,max:maxDmg,
-        axisLabel:{fontSize:9,formatter:function(v){return (v/10000).toFixed(0)+'万'}},splitLine:{show:false}}
-    ],
-    series:[
-      {name:'出战率(%)',type:'bar',data:usage,barMaxWidth:50,yAxisIndex:0,
-        itemStyle:{color:function(p){return ['#795548','#bdbdbd','#a5d6a7','#90caf9','#e53935'][p.dataIndex]}},
-        label:{show:true,position:'top',fontSize:11,formatter:'{c}%'}},
-      {name:'均伤/场',type:'line',data:dmg,yAxisIndex:1,smooth:false,
-        lineStyle:{color:'#ff9800',width:2},itemStyle:{color:'#ff9800'},symbol:'circle',symbolSize:8,
-        label:{show:true,position:'top',fontSize:10,color:'#bf360c',
-          formatter:function(p){return (p.value/10000).toFixed(0)+'万'}}}
-    ]
-  });
-})();
+// 平衡性图表已替换为静态表格
 
 window.addEventListener('resize',function(){
-  ['chart-rev4','chart-dau4','chart-wau','chart-wau2','chart-active','chart-r','chart-dp','chart-dp-arppu','chart-balance'].forEach(function(id){
+  ['chart-rev4','chart-dau4','chart-wau','chart-wau2','chart-active','chart-r','chart-dp'].forEach(function(id){
     var el=document.getElementById(id);
     if(el){var ins=echarts.getInstanceByDom(el);if(ins)ins.resize();}
   });
