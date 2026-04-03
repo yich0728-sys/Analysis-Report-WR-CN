@@ -645,6 +645,12 @@ tr:hover td{background:#eef2ff}
 <div class="card-sub" style="margin-top:12px">3.5 数据板（DP）各档位收入详析 · 分R交互看板</div>
   <div style="font-size:11px;color:#888;margin-bottom:6px">点击版本标签切换选中/取消；<strong>双击</strong>只保留该版本。按分R筛选后图表与表格实时联动。</div>
   <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;align-items:center">
+    <span style="font-size:11px;color:#555">指标：</span>
+    <button class="dp-mbtn" data-m="rev" style="font-size:10px;padding:2px 10px;border:1px solid #37474f;border-radius:3px;background:#37474f;color:#fff;cursor:pointer">收入</button>
+    <button class="dp-mbtn" data-m="pu" style="font-size:10px;padding:2px 10px;border:1px solid #bbb;border-radius:3px;background:#f5f5f5;cursor:pointer">付费人数</button>
+    <button class="dp-mbtn" data-m="arppu" style="font-size:10px;padding:2px 10px;border:1px solid #bbb;border-radius:3px;background:#f5f5f5;cursor:pointer">ARPPU</button>
+  </div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;align-items:center">
     <span style="font-size:11px;color:#555">分R筛选：</span>
     <button class="dp-rbtn" data-r="ALL" style="font-size:10px;padding:2px 9px;border:1px solid #37474f;border-radius:3px;background:#37474f;color:#fff;cursor:pointer">全部</button>
     <button class="dp-rbtn" data-r="0-100" style="font-size:10px;padding:2px 9px;border:1px solid #bbb;border-radius:3px;background:#f5f5f5;cursor:pointer">0-100元</button>
@@ -665,7 +671,7 @@ tr:hover td{background:#eef2ff}
   </div>
   <div id="chart-dp-r" style="width:100%;height:300px"></div>
   <table id="dp-tbl" style="margin-top:8px;font-size:12px">
-    <thead><tr><th>DP</th><th>池类型</th><th>投放内容（以0317为例）</th><th class="tr" id="dth-0317" style="color:#e53935">0317</th><th class="tr" id="dth-0210" style="color:#1976d2">0210</th><th class="tr" id="dth-0115" style="color:#43a047">0115</th><th class="tr" id="dth-1209" style="color:#757575">1209</th><th class="tr" id="dth-1030" style="color:#795548">1030</th><th class="tr">vs 0210</th></tr></thead>
+    <thead><tr><th>DP</th><th>池类型</th><th>投放内容</th><th class="tr" id="dth-0317" style="color:#e53935">0317</th><th class="tr" id="dth-0210" style="color:#1976d2">0210</th><th class="tr" id="dth-0115" style="color:#43a047">0115</th><th class="tr" id="dth-1209" style="color:#757575">1209</th><th class="tr" id="dth-1030" style="color:#795548">1030</th><th class="tr" id="dp-vs-hdr">vs 0210</th></tr></thead>
     <tbody id="dp-tbody"></tbody>
   </table>
   <div id="dp-insight" class="ins b" style="margin-top:8px"></div>
@@ -675,33 +681,79 @@ tr:hover td{background:#eef2ff}
 var D={"vers":["0317","0210","0115","1209","1030"],"verNames":{"0317":"0317 兀鹰","0210":"0210 泰特(春节)","0115":"0115 探路者","1209":"1209 雷克斯+拳击手","1030":"1030 杜克斯"},"verColors":{"0317":"#e53935","0210":"#1976d2","0115":"#43a047","1209":"#757575","1030":"#795548"},"rLabels":["0-100元","100-1000元","1000-5000元","5000-2万元","2万元+"],"dps":["DP1","DP2","DP3","DP4","DP5","DP6","DP7","DP8","DP9","DP10","DP11","DP12"],"dpDesc":{"DP1":"老机甲混池","DP2":"白银武器混池","DP3":"白银机甲混池","DP4":"黄金武器混池","DP5":"黄金机甲混池","DP6":"终极板(排行榜)","DP7":"老泰坦混池","DP8":"活动纯净池","DP9":"活动纯净池(特殊)","DP10":"机武混池(本期)","DP11":"新泰坦纯净池","DP12":"限量版内容池","DPPass":"数据板通行证"},"dpContent":{"DP1":{"0317":"杜克斯、诺欧、里奥、天剑190式、威拉·奥维、沃尔特·特罗梅尔","0210":"诺欧、里奥、天剑190式、毁坏者、沃尔特·特罗梅尔、克利夫·德布斯","0115":"里奥、毁坏者、天剑190式、焱鸦、沃尔特·特罗梅尔、克利夫·德布斯","1209":"毁坏者、天剑190式、焱鸦、蜃楼、克利夫·德布斯、夏普美晴","1030":"天剑190式、焱鸦、蜃楼、居里、夏普美晴、沈佑"},"DP2":{"0317":"咆哮者、低吼者、呼啸者、双冠、红冠、白冠","0210":"双冠、红冠、白冠、约顿、奇永、莫拉纳","0115":"约顿、奇永、莫拉纳、埃洛克斯、穆瑞克斯、戒律","1209":"埃洛克斯、穆瑞克斯、戒律、重击、雷纳尼、纳涅阿","1030":"戒律、重击、麒麟、瘴炬、河龙、监管者"},"DP3":{"0317":"0.004、0.006、0.008、0.008、0.005、0.02","0210":"","0115":"","1209":"","1030":""},"DP4":{"0317":"咆哮者、低吼者、呼啸者、双冠、红冠、白冠","0210":"双冠、红冠、白冠、约顿、奇永、莫拉纳","0115":"约顿、奇永、莫拉纳、埃洛克斯、穆瑞克斯、戒律","1209":"埃洛克斯、穆瑞克斯、戒律、重击、雷纳尼、纳涅阿","1030":"戒律、重击、河龙、麒麟、瘴炬、监管者"},"DP5":{"0317":"兀鹰、泰特、雷克斯、探路者、浪潮、圣甲虫","0210":"泰特、探路者、雷克斯、杜克斯、圣甲虫、弗雷佐","0115":"探路者、雷克斯、杜克斯、诺欧、弗雷佐、公牛","1209":"雷克斯、杜克斯、诺欧、里奥、公牛、蛛网","1030":"杜克斯、毁坏者、里奥、诺欧、蛛网、奥波"},"DP6":{"0317":"终极版灾难、终极版涡流、终极版轻骑兵、终极版天火、终极版光轮","0210":"终极版惩恶者、终极版极寒、终极版发射器、终极版光轮、终极版烈焰","0115":"终极敖顺、终极版图卢姆巴斯、终极版惩恶者、终极版灾难、终极版天火","1209":"终极风神、终极版轻骑兵、终极版龙骑兵、终极版灾难、终极版脉冲星","1030":"终极入侵者、终极版狂风、终极版光轮、终极版脉冲星、终极版奥坎"},"DP7":{"0317":"拳击手、悲恸者、毁灭者、尼娜·凯斯勒、比约恩、胡金","0210":"拳击手、悲恸者、毁灭者、尼娜·凯斯勒、比约恩、胡金","0115":"比约恩、胡金、穆宁、西格里德·索尔默、吞食者、主宰者","1209":"比约恩、胡金、穆宁、西格里德·索尔默、吞食者、主宰者","1030":"吞食者、主宰者、均衡者、利亚姆·克雷格、贝德维尔、火海"},"DP8":{"0317":"兀鹰、咆哮者、呼啸者、浪潮、Livia Borgia、机器人","0210":"泰特、双冠、红冠、白冠、巴斯特·内费鲁、圣甲虫","0115":"探路者、约顿、奇永、莫拉纳、弗雷佐、约翰·奥斯特德","1209":"雷克斯、埃洛克斯、穆瑞克斯、公牛、瑞奇·霍罗、机器人","1030":""},"DP9":{"0317":"","0210":"","0115":"","1209":"","1030":""},"DP10":{"0317":"兀鹰、兀鹰 5000 零件、兀鹰 2500 零件、兀鹰 1000 零件、兀鹰 500 零件、咆哮者","0210":"泰特、泰特 5000 零件、泰特 2500 零件、泰特 1000 零件、泰特 500 零件、双冠","0115":"探路者、探路者 5000 零件、探路者 2500 零件、探路者 1000 零件、探路者 500 零件、约顿","1209":"雷克斯、雷克斯 5000 零件、雷克斯 2500 零件、雷克斯 1000 零件、雷克斯 500 零件、埃洛克斯","1030":"杜克斯、戒律、重击、杜克斯 5000 零件、杜克斯 2500 零件、杜克斯 1000 零件"},"DP11":{"0317":"神枪手、报复者、潜行者、总计","0210":"神枪手、报复者、潜行者、总计","0115":"拳击手、悲恸者、毁灭者、尼娜·凯斯勒、总计","1209":"拳击手、悲恸者、毁灭者、尼娜·凯斯勒、总计","1030":"比约恩、胡金、穆宁、西格里德·索尔默、总计"},"DP12":{"0317":"竞技兀鹰、竞技咆哮者、竞技呼啸者、竞技浪潮、詹姆斯·韦洛奇、机器人","0210":"钢铁泰特、钢铁双冠、钢铁红冠、钢铁白冠、巴斯特·内费鲁、圣甲虫","0115":"","1209":"烈焰雷克斯、烈焰埃洛克斯、烈焰穆瑞克斯、公牛、瑞奇·霍罗、机器人","1030":"杜克斯、戒律、重击、蛛网、威拉·奥维、机器人"},"DPPass":{"0317":"订阅解锁专属内容","0210":"订阅解锁专属内容","0115":"订阅解锁专属内容","1209":"订阅解锁专属内容","1030":"订阅解锁专属内容"}},"rev":{"0317":{"DP1":[20025,61565,46324,19730,6237],"DP2":[2493,19256,44521,41544,51259],"DP3":[3032,15867,45751,45694,51370],"DP4":[0,201,1479,2945,9706],"DP5":[0,1075,6569,11267,7464],"DP6":[0,0,0,0,0],"DP7":[1282,11884,34936,44870,32781],"DP8":[726,362,8129,20348,134135],"DP9":[0,0,0,0,0],"DP10":[6353,7259,25193,62713,189093],"DP11":[0,3431,11784,14512,30318],"DP12":[0,657,8452,44951,439426],"DPPass":[6424,14344,44792,62568,57610]},"0210":{"DP1":[27045,90611,73536,23868,4837],"DP2":[4738,30210,52356,39402,20022],"DP3":[4320,25082,59901,43153,41867],"DP4":[0,336,6510,10427,42668],"DP5":[215,1501,14286,14910,13726],"DP6":[0,0,0,0,0],"DP7":[594,9099,55119,92366,48557],"DP8":[0,0,4087,21906,117451],"DP9":[0,0,0,0,0],"DP10":[2231,4497,13969,27686,129882],"DP11":[657,2456,26568,64412,304949],"DP12":[368,1821,15510,58819,446308],"DPPass":[5192,16192,42064,58057,51465]},"0115":{"DP1":[16636,58122,49516,21280,8387],"DP2":[3046,24338,50726,59819,101875],"DP3":[1951,23826,42332,43260,83139],"DP4":[0,1548,490,6695,29560],"DP5":[0,2806,7074,16812,40921],"DP6":[0,0,0,0,0],"DP7":[904,9870,24313,20596,13026],"DP8":[0,147,334,7925,112738],"DP9":[0,0,0,0,0],"DP10":[72,1213,4658,9543,66197],"DP11":[0,4209,25062,55453,79010],"DP12":[0,0,0,0,2047],"DPPass":[3960,10472,32384,50409,45393]},"1209":{"DP1":[12189,58922,67140,28242,5981],"DP2":[3083,24726,48316,38855,31459],"DP3":[1089,11728,44301,48867,43937],"DP4":[148,1188,5149,3312,6233],"DP5":[215,1965,7983,13888,12049],"DP6":[0,0,0,0,0],"DP7":[184,4311,15411,15564,11067],"DP8":[0,0,3507,12476,74444],"DP9":[0,0,0,0,0],"DP10":[700,3888,16542,37344,132437],"DP11":[0,4001,35358,196526,701534],"DP12":[0,0,4884,48531,395175],"DPPass":[2816,11088,39424,53856,46889]},"1030":{"DP1":[6993,55233,76556,30940,6870],"DP2":[2285,31832,77983,75903,96904],"DP3":[1522,9743,34749,40036,83599],"DP4":[0,1243,7668,13210,13629],"DP5":[0,0,10416,14397,40627],"DP6":[0,0,0,0,0],"DP7":[354,3083,14441,22552,12731],"DP8":[0,0,0,0,0],"DP9":[0,0,0,0,0],"DP10":[2298,2773,21934,51657,297578],"DP11":[0,634,3399,17160,31277],"DP12":[0,1454,9112,48992,244627],"DPPass":[4400,18633,64240,75386,57273]}},"pu":{"0317":{"DP1":[844,2227,1568,497,99],"DP2":[192,730,1125,555,234],"DP3":[96,423,731,374,164],"DP4":[0,3,12,10,36],"DP5":[0,6,28,41,25],"DP6":[0,0,0,0,0],"DP7":[5,77,222,207,179],"DP8":[1,2,18,31,152],"DP9":[0,0,0,0,0],"DP10":[14,43,106,212,384],"DP11":[0,10,22,24,51],"DP12":[0,1,10,38,200],"DPPass":[73,163,509,711,655]},"0210":{"DP1":[1252,3301,2247,574,90],"DP2":[251,932,1410,642,163],"DP3":[69,488,862,454,168],"DP4":[0,5,26,33,94],"DP5":[1,11,55,57,34],"DP6":[0,0,0,0,0],"DP7":[6,56,206,270,140],"DP8":[0,0,8,33,118],"DP9":[0,0,0,0,0],"DP10":[14,36,94,137,273],"DP11":[1,6,39,98,273],"DP12":[1,2,16,51,206],"DPPass":[59,184,478,660,585]},"0115":{"DP1":[1063,3190,2596,899,178],"DP2":[155,654,1135,609,346],"DP3":[53,363,586,338,235],"DP4":[0,8,6,26,60],"DP5":[0,14,33,55,86],"DP6":[0,0,0,0,0],"DP7":[16,127,250,206,121],"DP8":[0,1,2,16,109],"DP9":[0,0,0,0,0],"DP10":[2,13,37,44,98],"DP11":[0,12,70,134,162],"DP12":[0,0,0,0,3],"DPPass":[45,119,368,573,516]},"1209":{"DP1":[519,2258,2000,598,109],"DP2":[200,822,1235,599,222],"DP3":[37,220,558,376,207],"DP4":[1,11,26,19,24],"DP5":[1,14,36,57,44],"DP6":[0,0,0,0,0],"DP7":[3,32,89,82,64],"DP8":[0,0,6,24,81],"DP9":[0,0,0,0,0],"DP10":[4,13,64,117,223],"DP11":[0,7,55,206,563],"DP12":[0,0,5,35,226],"DPPass":[32,126,448,612,533]},"1030":{"DP1":[413,1807,1983,493,80],"DP2":[125,915,1757,1026,468],"DP3":[33,189,443,394,247],"DP4":[0,10,27,45,49],"DP5":[0,0,32,56,92],"DP6":[0,0,0,0,0],"DP7":[4,31,107,139,75],"DP8":[0,0,0,0,0],"DP9":[0,0,0,0,0],"DP10":[5,29,113,192,422],"DP11":[0,2,11,47,100],"DP12":[0,2,11,46,187],"DPPass":[50,212,730,857,651]}},"arppu":{"0317":{"DP1":[24,28,30,40,63],"DP2":[13,26,40,75,219],"DP3":[32,38,63,122,313],"DP4":[0,67,123,294,270],"DP5":[0,179,235,275,299],"DP6":[0,0,0,0,0],"DP7":[256,154,157,217,183],"DP8":[726,181,452,656,882],"DP9":[0,0,0,0,0],"DP10":[454,169,238,296,492],"DP11":[0,343,536,605,594],"DP12":[0,657,845,1183,2197],"DPPass":[88,88,88,88,88]},"0210":{"DP1":[22,27,33,42,54],"DP2":[19,32,37,61,123],"DP3":[63,51,69,95,249],"DP4":[0,67,250,316,454],"DP5":[215,136,260,262,404],"DP6":[0,0,0,0,0],"DP7":[99,162,268,342,347],"DP8":[0,0,511,664,995],"DP9":[0,0,0,0,0],"DP10":[159,125,149,202,476],"DP11":[657,409,681,657,1117],"DP12":[368,911,969,1153,2167],"DPPass":[88,88,88,88,88]},"0115":{"DP1":[16,18,19,24,47],"DP2":[20,37,45,98,294],"DP3":[37,66,72,128,354],"DP4":[0,193,82,257,493],"DP5":[0,200,214,306,476],"DP6":[0,0,0,0,0],"DP7":[57,78,97,100,108],"DP8":[0,147,167,495,1034],"DP9":[0,0,0,0,0],"DP10":[36,93,126,217,675],"DP11":[0,351,358,414,488],"DP12":[0,0,0,0,682],"DPPass":[88,88,88,88,88]},"1209":{"DP1":[23,26,34,47,55],"DP2":[15,30,39,65,142],"DP3":[29,53,79,130,212],"DP4":[148,108,198,174,260],"DP5":[215,140,222,244,274],"DP6":[0,0,0,0,0],"DP7":[61,135,173,190,173],"DP8":[0,0,584,520,919],"DP9":[0,0,0,0,0],"DP10":[175,299,258,319,594],"DP11":[0,572,643,954,1246],"DP12":[0,0,977,1387,1749],"DPPass":[88,88,88,88,88]},"1030":{"DP1":[17,31,39,63,86],"DP2":[18,35,44,74,207],"DP3":[46,52,78,102,338],"DP4":[0,124,284,294,278],"DP5":[0,0,325,257,442],"DP6":[0,0,0,0,0],"DP7":[89,99,135,162,170],"DP8":[0,0,0,0,0],"DP9":[0,0,0,0,0],"DP10":[460,96,194,269,705],"DP11":[0,317,309,365,313],"DP12":[0,727,828,1065,1308],"DPPass":[88,88,88,88,88]}}};
 var DORDER=["DP1","DP2","DP3","DP4","DP5","DP7","DP8","DP10","DP11","DP12","DPPass"];
 var DTYPE={DP1:"入门混池",DP2:"白银武器",DP3:"白银机甲",DPPass:"数据板通行证",DP4:"黄金武器",DP5:"黄金机甲",DP7:"老泰坦",DP8:"活动纯净",DP10:"本期机武",DP11:"新泰坦",DP12:"限量版"};
+var DDESC={DP1:"超过2个版本以上的老机甲",DP2:"近4个版本机甲武器含零件混池",DP3:"近4个版本机甲含零件混池",DP4:"近4个版本机甲武器混池",DP5:"近4个版本机甲混池",DP7:"近2期老泰坦混池",DP8:"当期机甲和机甲武器、无人机、机师纯净池",DP10:"当期机甲和机甲武器含零件纯净池",DP11:"近1期或当期新泰坦纯净池",DP12:"当期限量版纯净池",DPPass:"数据板通行证"};
 var RSEGS=["0-100","100-1000","1000-5000","5000-20000","20000+"];
 var aV={"0317":1,"0210":1,"0115":1,"1209":1,"1030":1};
-var aR="ALL";
+var aR={"0-100":1,"100-1000":1,"1000-5000":1,"5000-20000":1,"20000+":1};
+var aM="rev";
 var dpC=null;
 var dbt=null;
+var MINFO={
+  rev:{name:"收入",yName:"万元",vs:"vs 0210",fmt:function(v){return (v/10000).toFixed(1)+"万";},chart:function(v){return +(v/10000).toFixed(2);}},
+  pu:{name:"付费人数",yName:"人数",vs:"vs 0210",fmt:function(v){return Math.round(v)+"人";},chart:function(v){return Math.round(v);}},
+  arppu:{name:"ARPPU",yName:"元",vs:"vs 0210",fmt:function(v){return "¥"+Math.round(v);},chart:function(v){return Math.round(v);}}
+};
 
-function gV(ver,dp){
-  if(aR==="ALL")return RSEGS.reduce(function(s,r,i){return s+D.rev[ver][dp][i];},0);
-  var i=RSEGS.indexOf(aR);return i>=0?D.rev[ver][dp][i]:0;
+function isAllR(){
+  return RSEGS.every(function(r){return aR[r];});
 }
-function gP(ver,dp){
-  if(aR==="ALL")return RSEGS.reduce(function(s,r,i){return s+D.pu[ver][dp][i];},0);
-  var i=RSEGS.indexOf(aR);return i>=0?D.pu[ver][dp][i]:0;
+function getPickedR(){
+  return RSEGS.filter(function(r){return aR[r];});
 }
-function fw(v){return (v/10000).toFixed(1)+"万";}
-
-function rClick(b){
-  aR=b.dataset.r;
+function getRLabel(){
+  var picked=getPickedR();
+  if(picked.length===RSEGS.length)return "全部";
+  if(picked.length===0)return "未选择";
+  return picked.join(" + ")+"元";
+}
+function syncRBtns(){
   document.querySelectorAll(".dp-rbtn").forEach(function(x){
-    var on=x.dataset.r===aR;
+    var on=x.dataset.r==="ALL"?isAllR():!!aR[x.dataset.r];
     x.style.background=on?"#37474f":"#f5f5f5";
     x.style.color=on?"#fff":"#333";
     x.style.borderColor=on?"#37474f":"#bbb";
   });
+}
+function syncMBtns(){
+  document.querySelectorAll(".dp-mbtn").forEach(function(x){
+    var on=x.dataset.m===aM;
+    x.style.background=on?"#37474f":"#f5f5f5";
+    x.style.color=on?"#fff":"#333";
+    x.style.borderColor=on?"#37474f":"#bbb";
+  });
+  document.getElementById("dp-vs-hdr").textContent=MINFO[aM].vs;
+}
+function sumRev(ver,dp){
+  return getPickedR().reduce(function(s,r){var i=RSEGS.indexOf(r);return s+(i>=0?D.rev[ver][dp][i]:0);},0);
+}
+function sumPu(ver,dp){
+  return getPickedR().reduce(function(s,r){var i=RSEGS.indexOf(r);return s+(i>=0?D.pu[ver][dp][i]:0);},0);
+}
+function getVal(ver,dp){
+  if(aM==="rev")return sumRev(ver,dp);
+  if(aM==="pu")return sumPu(ver,dp);
+  var pu=sumPu(ver,dp),rev=sumRev(ver,dp);
+  return pu>0?rev/pu:0;
+}
+function fmtVal(v){return MINFO[aM].fmt(v);}
+function chartVal(v){return MINFO[aM].chart(v);}
+
+function rClick(b){
+  var r=b.dataset.r;
+  if(r==="ALL"){
+    RSEGS.forEach(function(x){aR[x]=1;});
+  }else{
+    aR[r]=aR[r]?0:1;
+    if(!RSEGS.some(function(x){return aR[x];}))aR[r]=1;
+  }
+  syncRBtns();
   upAll();
 }
-
+function mClick(b){
+  aM=b.dataset.m;
+  syncMBtns();
+  upAll();
+}
 function vClick(e,b){
   if(dbt)return;
   dbt=setTimeout(function(){
@@ -729,7 +781,7 @@ function upChart(){
   var series=vers.map(function(ver){
     return {name:D.verNames[ver],type:"bar",barMaxWidth:14,
       itemStyle:{color:D.verColors[ver]},
-      data:dps.map(function(dp){return +(gV(ver,dp)/10000).toFixed(2);}),
+      data:dps.map(function(dp){return chartVal(getVal(ver,dp));}),
       label:ver==="0317"?{show:true,position:"top",fontSize:9,
         formatter:function(p){return p.value>0?p.value+"":"";}
       }:{show:false}};
@@ -738,24 +790,23 @@ function upChart(){
     tooltip:{trigger:"axis",
       formatter:function(ps){
         var dp=dps[ps[0].dataIndex];
-        var rl=aR==="ALL"?"全部":aR+"元";
+        var rl=getRLabel();
         var s=ps[0].axisValue+"&nbsp;<span style='color:#888;font-size:10px'>"+DTYPE[dp]+"</span><br>";
-        s+="<span style='color:#aaa;font-size:9px'>分R："+rl+"</span><br>";
+        s+="<span style='color:#aaa;font-size:9px'>指标："+MINFO[aM].name+" | 分R："+rl+"</span><br>";
         ps.forEach(function(p){
           var v=D.vers.find(function(x){return D.verNames[x]===p.seriesName;});
-          var pu=gP(v,dp),ar=pu>0?Math.round(gV(v,dp)/pu):0;
-          s+=p.marker+p.seriesName+": "+p.value+"万";
-          if(pu>0)s+=" | "+pu+"人 | ARPPU ¥"+ar;
+          var rev=sumRev(v,dp),pu=sumPu(v,dp),ar=pu>0?Math.round(rev/pu):0;
+          s+=p.marker+p.seriesName+": "+fmtVal(getVal(v,dp));
+          s+=" | 收入 "+MINFO.rev.fmt(rev)+" | "+MINFO.pu.fmt(pu)+" | ARPPU ¥"+ar;
           s+="<br>";
         });
-        var it=D.dpContent[dp]["0317"];if(it)s+="<span style='color:#888;font-size:9px'>0317投放："+it+"</span>";
         return s;
       }
     },
     legend:{data:vers.map(function(v){return D.verNames[v];}),bottom:0,textStyle:{fontSize:10}},
     grid:{top:10,bottom:50,left:36,right:10},
     xAxis:{type:"category",data:dps,axisLabel:{fontSize:10}},
-    yAxis:{type:"value",name:"万元",nameTextStyle:{fontSize:9},axisLabel:{fontSize:9},splitLine:{lineStyle:{type:"dashed"}}},
+    yAxis:{type:"value",name:MINFO[aM].yName,nameTextStyle:{fontSize:9},axisLabel:{fontSize:9},splitLine:{lineStyle:{type:"dashed"}}},
     series:series
   };
   if(!dpC)dpC=echarts.init(document.getElementById("chart-dp-r"));
@@ -766,16 +817,16 @@ function upTable(){
   var dps=DORDER.filter(function(d){return d!=="DP9";});
   var html="";
   dps.forEach(function(dp){
-    var v0=gV("0317",dp),v1=gV("0210",dp);
+    var v0=getVal("0317",dp),v1=getVal("0210",dp);
     var pct=v1>0?((v0-v1)/v1*100):0;
     var ps=v1>0?(pct>=0?"+":"")+pct.toFixed(1)+"%":"-";
     var pc=pct>=0?"#2e7d32":"#c62828";
-    var ct=DTYPE[dp]||"-";
+    var ct=DDESC[dp]||"-";
     html+="<tr><td><strong>"+dp+"</strong></td><td style='color:#555'>"+DTYPE[dp]+"</td><td style='color:#666;font-size:10px'>"+ct+"</td>";
     ["0317","0210","0115","1209","1030"].forEach(function(v){
       var b=v==="0317"?"font-weight:600;":"";
       var disp=aV[v]?"":"display:none;";
-      html+="<td class='tr' style='"+b+disp+"'>"+fw(gV(v,dp))+"</td>";
+      html+="<td class='tr' style='"+b+disp+"'>"+fmtVal(getVal(v,dp))+"</td>";
     });
     html+="<td class='tr' style='color:"+pc+"'>"+ps+"</td></tr>";
   });
@@ -792,19 +843,25 @@ var INS={
 };
 
 function upInsight(){
-  document.getElementById("dp-insight").innerHTML=INS[aR]||INS["ALL"];
-  document.getElementById("dp-r-lbl").textContent=aR==="ALL"?"":"↑ 当前："+aR+"元视角";
+  var key;
+  var picked=getPickedR();
+  if(picked.length===RSEGS.length||picked.length===0){key="ALL";}
+  else if(picked.length===1){key=picked[0];}
+  else{key="ALL";}
+  document.getElementById("dp-insight").innerHTML=INS[key]||INS["ALL"];
+  document.getElementById("dp-r-lbl").textContent=isAllR()?"":"↑ 当前："+getRLabel()+"视角";
 }
 
 function upAll(){upChart();upTable();upInsight();}
 
 document.querySelectorAll(".dp-rbtn").forEach(function(b){b.addEventListener("click",function(){rClick(b);});});
+document.querySelectorAll(".dp-mbtn").forEach(function(b){b.addEventListener("click",function(){mClick(b);});});
 document.querySelectorAll(".dp-vbtn").forEach(function(b){
   b.addEventListener("click",function(e){vClick(e,b);});
   b.addEventListener("dblclick",function(){vDbl(b);});
 });
 
-window.addEventListener("load",function(){upAll();});
+window.addEventListener("load",function(){syncRBtns();syncMBtns();upAll();});
 window.addEventListener("resize",function(){if(dpC)dpC.resize();});
 })();
 </script>
