@@ -47,8 +47,8 @@ parts.append('  <div id="dp-insight" class="ins b" style="margin-top:8px"></div>
 js = """<script>
 (function(){
 var D=__PAYLOAD__;
-var DORDER=["DP1","DP2","DP3","DP4","DP5","DP6","DP7","DP8","DP10","DP11","DP12"];
-var DTYPE={DP1:"入门混池",DP2:"白银武器",DP3:"白银机甲",DP4:"黄金武器",DP5:"黄金机甲",DP6:"数据板通行证",DP7:"老泰坦",DP8:"活动纯净",DP10:"本期机武",DP11:"新泰坦",DP12:"限量版"};
+var DORDER=["DP1","DP2","DP3","DPPass","DP4","DP5","DP7","DP8","DP10","DP11","DP12"];
+var DTYPE={DP1:"入门混池",DP2:"白银武器",DP3:"白银机甲",DPPass:"数据板通行证",DP4:"黄金武器",DP5:"黄金机甲",DP7:"老泰坦",DP8:"活动纯净",DP10:"本期机武",DP11:"新泰坦",DP12:"限量版"};
 var RSEGS=["0-100","100-1000","1000-5000","5000-20000","20000+"];
 var aV={"0317":1,"0210":1,"0115":1,"1209":1,"1030":1};
 var aR="ALL";
